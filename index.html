@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<meta name="apple-itunes-app" content="app-id=6759091771">
+<title>山海狩 — 全港首個 AR 山海經靈獸手遊</title>
+<meta name="description" content="全港首個以《山海經》為藍本的 AR 實境手遊。走進真實街頭，召喚上古神獸，開啟你的山海狩獵之旅。">
+<meta property="og:title" content="山海狩 — 全港首個 AR 山海經手遊">
+<meta property="og:description" content="神話不再只是傳說。全港首個以《山海經》為藍本的 AR 實境手遊，現已登陸 App Store。">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://apps.apple.com/hk/app/%E5%B1%B1%E6%B5%B7%E7%8B%A9/id6759091771">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@600;900&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #0a0a0f;
+    font-family: -apple-system, "PingFang TC", "Noto Sans TC", "Microsoft JhengHei", sans-serif;
+    overflow-x: hidden;
+    position: relative;
+    color: #fff;
+  }
+
+  /* 頂部金色漸層光暈 */
+  .glow-top {
+    position: fixed;
+    top: -30%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 140%;
+    height: 60%;
+    background: radial-gradient(ellipse at center, rgba(212,175,85,0.12) 0%, rgba(212,175,85,0.04) 40%, transparent 70%);
+    pointer-events: none;
+  }
+  .glow-bottom {
+    position: fixed;
+    bottom: -20%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 120%;
+    height: 40%;
+    background: radial-gradient(ellipse at center, rgba(30,100,180,0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  /* 飄浮墨跡粒子 */
+  .ink-particle {
+    position: fixed;
+    border-radius: 50%;
+    opacity: 0;
+    pointer-events: none;
+    animation: inkFloat 12s ease-in-out infinite;
+  }
+  @keyframes inkFloat {
+    0%   { opacity: 0; transform: translateY(20px) scale(0.8); }
+    20%  { opacity: 0.4; }
+    50%  { transform: translateY(-30px) scale(1.1); }
+    80%  { opacity: 0.3; }
+    100% { opacity: 0; transform: translateY(20px) scale(0.8); }
+  }
+
+  .container {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 72px 24px 56px;
+    max-width: 460px;
+    width: 100%;
+  }
+
+  /* 頂部徽章 */
+  .badge-hk {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: linear-gradient(135deg, rgba(212,175,85,0.15), rgba(212,175,85,0.05));
+    border: 1px solid rgba(212,175,85,0.3);
+    border-radius: 100px;
+    padding: 6px 18px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #d4af55;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 28px;
+    backdrop-filter: blur(10px);
+  }
+  .badge-hk::before {
+    content: "★";
+    font-size: 10px;
+  }
+
+  .headline {
+    text-align: center;
+    margin-bottom: 44px;
+  }
+  .headline h1 {
+    font-family: "Noto Serif TC", serif;
+    font-size: 36px;
+    font-weight: 900;
+    background: linear-gradient(180deg, #f5e6c8 0%, #d4af55 50%, #a8872e 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: 4px;
+    line-height: 1.5;
+    margin-bottom: 12px;
+  }
+  .headline .sub {
+    font-size: 16px;
+    font-weight: 400;
+    color: rgba(255,255,255,0.5);
+    letter-spacing: 3px;
+  }
+
+  /* App Icon 帶光環 */
+  .icon-wrapper {
+    position: relative;
+    margin-bottom: 24px;
+  }
+  .icon-glow {
+    position: absolute;
+    inset: -20px;
+    border-radius: 56px;
+    background: radial-gradient(circle, rgba(212,175,85,0.25) 0%, transparent 70%);
+    animation: iconPulse 4s ease-in-out infinite;
+  }
+  @keyframes iconPulse {
+    0%, 100% { opacity: 0.6; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.05); }
+  }
+  .app-icon {
+    position: relative;
+    width: 180px;
+    height: 180px;
+    border-radius: 40px;
+    box-shadow: 0 16px 48px rgba(0,0,0,0.5), 0 0 0 1px rgba(212,175,85,0.2);
+    transition: transform 0.3s ease;
+  }
+  .app-icon:hover { transform: scale(1.05); }
+
+  .app-name {
+    font-family: "Noto Serif TC", serif;
+    font-size: 28px;
+    font-weight: 900;
+    letter-spacing: 6px;
+    background: linear-gradient(180deg, #fff 0%, rgba(255,255,255,0.7) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 16px;
+  }
+
+  .app-desc {
+    font-size: 14px;
+    color: rgba(255,255,255,0.45);
+    text-align: center;
+    line-height: 1.8;
+    margin-bottom: 36px;
+    max-width: 320px;
+    letter-spacing: 0.5px;
+  }
+  .app-desc strong {
+    color: rgba(212,175,85,0.8);
+    font-weight: 600;
+  }
+
+  /* 金色分隔線 */
+  .divider {
+    width: 60px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(212,175,85,0.5), transparent);
+    margin-bottom: 36px;
+  }
+
+  /* App Store 下載按鈕 */
+  .download-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    background: linear-gradient(135deg, #1a1a1a, #000);
+    color: #fff;
+    text-decoration: none;
+    padding: 14px 32px;
+    border-radius: 16px;
+    border: 1px solid rgba(255,255,255,0.1);
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,255,255,0.05);
+    margin-bottom: 36px;
+  }
+  .download-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.5), 0 0 20px rgba(212,175,85,0.15);
+    border-color: rgba(212,175,85,0.3);
+  }
+  .download-btn:active { transform: translateY(0); }
+  .download-btn .apple-logo { width: 28px; height: 28px; }
+  .download-btn .btn-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.2;
+  }
+  .download-btn .btn-text .small {
+    font-size: 11px;
+    font-weight: 400;
+    opacity: 0.7;
+  }
+  .download-btn .btn-text .big {
+    font-size: 20px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+  }
+
+  /* QR Code */
+  .qr-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+  }
+  .qr-section img {
+    width: 130px;
+    height: 130px;
+    border-radius: 14px;
+    background: #fff;
+    padding: 6px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+  }
+  .qr-label {
+    font-size: 11px;
+    color: rgba(255,255,255,0.3);
+    letter-spacing: 2px;
+  }
+
+  /* 特色亮點 */
+  .features {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-top: 40px;
+    width: 100%;
+    max-width: 360px;
+  }
+  .feature-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.06);
+    backdrop-filter: blur(10px);
+    border-radius: 16px;
+    padding: 20px 14px;
+    text-align: center;
+    transition: all 0.3s ease;
+  }
+  .feature-card:hover {
+    background: rgba(212,175,85,0.06);
+    border-color: rgba(212,175,85,0.15);
+    transform: translateY(-2px);
+  }
+  .feature-card .icon { font-size: 30px; margin-bottom: 8px; }
+  .feature-card .title {
+    font-size: 13px;
+    font-weight: 700;
+    color: rgba(255,255,255,0.85);
+    margin-bottom: 4px;
+  }
+  .feature-card .desc {
+    font-size: 11px;
+    color: rgba(255,255,255,0.35);
+    line-height: 1.4;
+  }
+
+  /* 底部引言 */
+  .quote {
+    margin-top: 44px;
+    text-align: center;
+    max-width: 300px;
+  }
+  .quote p {
+    font-family: "Noto Serif TC", serif;
+    font-size: 13px;
+    color: rgba(255,255,255,0.25);
+    font-style: italic;
+    line-height: 1.8;
+    letter-spacing: 1px;
+  }
+  .quote .src {
+    font-size: 11px;
+    color: rgba(212,175,85,0.35);
+    margin-top: 8px;
+    font-style: normal;
+  }
+
+  .footer {
+    margin-top: 32px;
+    font-size: 10px;
+    color: rgba(255,255,255,0.15);
+    letter-spacing: 1px;
+  }
+</style>
+</head>
+<body>
+
+<div class="glow-top"></div>
+<div class="glow-bottom"></div>
+
+<!-- 墨跡粒子 -->
+<div class="ink-particle" style="width:4px;height:4px;background:rgba(212,175,85,0.6);top:15%;left:20%;animation-delay:0s;"></div>
+<div class="ink-particle" style="width:3px;height:3px;background:rgba(212,175,85,0.5);top:25%;right:15%;animation-delay:2s;"></div>
+<div class="ink-particle" style="width:5px;height:5px;background:rgba(180,160,100,0.4);top:40%;left:10%;animation-delay:4s;"></div>
+<div class="ink-particle" style="width:3px;height:3px;background:rgba(212,175,85,0.5);top:55%;right:20%;animation-delay:6s;"></div>
+<div class="ink-particle" style="width:4px;height:4px;background:rgba(200,170,80,0.4);top:70%;left:25%;animation-delay:8s;"></div>
+<div class="ink-particle" style="width:3px;height:3px;background:rgba(212,175,85,0.3);top:80%;right:18%;animation-delay:10s;"></div>
+<div class="ink-particle" style="width:4px;height:4px;background:rgba(180,150,70,0.4);top:20%;left:80%;animation-delay:3s;"></div>
+<div class="ink-particle" style="width:5px;height:5px;background:rgba(212,175,85,0.3);top:65%;left:85%;animation-delay:7s;"></div>
+
+<div class="container">
+
+  <div class="badge-hk">全港首個 AR 山海經手遊</div>
+
+  <div class="headline">
+    <h1>神話走入現實<br>山海由你而狩</h1>
+    <div class="sub">M Y T H I C &nbsp; H U N T</div>
+  </div>
+
+  <div class="icon-wrapper">
+    <div class="icon-glow"></div>
+    <img class="app-icon" src="app-icon.png" alt="山海狩">
+  </div>
+
+  <div class="app-name">山 海 狩</div>
+
+  <div class="app-desc">
+    <strong>全港首個</strong>以中國古典神話《山海經》為藍本的 AR 實境手遊。<br>
+    走進真實街頭，喚醒沉睡千年的上古神獸——<br>
+    九尾狐、麒麟、燭龍、鳳凰⋯⋯就在你身邊。
+  </div>
+
+  <div class="divider"></div>
+
+  <a class="download-btn" href="https://apps.apple.com/hk/app/%E5%B1%B1%E6%B5%B7%E7%8B%A9/id6759091771" target="_blank" rel="noopener">
+    <svg class="apple-logo" viewBox="0 0 24 24" fill="white">
+      <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
+    </svg>
+    <div class="btn-text">
+      <span class="small">Download on the</span>
+      <span class="big">App Store</span>
+    </div>
+  </a>
+
+  <div class="qr-section">
+    <img src="qr-code.png" alt="掃描 QR Code 下載山海狩">
+    <span class="qr-label">掃描 QR CODE 下載</span>
+  </div>
+
+  <div class="features">
+    <div class="feature-card">
+      <div class="icon">🐉</div>
+      <div class="title">百種上古靈獸</div>
+      <div class="desc">源自《山海經》原典<br>逐一收集、進化養成</div>
+    </div>
+    <div class="feature-card">
+      <div class="icon">📷</div>
+      <div class="title">AR 實境捕獲</div>
+      <div class="desc">打開鏡頭即見神獸<br>街頭巷尾皆是獵場</div>
+    </div>
+    <div class="feature-card">
+      <div class="icon">⚔️</div>
+      <div class="title">即時策略戰鬥</div>
+      <div class="desc">靈獸對戰、煉化捕獲<br>考驗你的狩獵智慧</div>
+    </div>
+    <div class="feature-card">
+      <div class="icon">🌏</div>
+      <div class="title">走出戶外探索</div>
+      <div class="desc">GPS 定位生成靈獸<br>越走越遠、越多發現</div>
+    </div>
+  </div>
+
+  <div class="quote">
+    <p>「又東三百里，曰青丘之山。有獸焉，其狀如狐而九尾。」</p>
+    <div class="src">——《山海經・南山經》</div>
+  </div>
+
+  <div class="footer">© 2026 山海狩 MYTHIC HUNT</div>
+</div>
+
+</body>
+</html>
