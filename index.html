@@ -20,7 +20,6 @@
 <link rel="icon" href="favicon.png" type="image/png">
 <link rel="preload" href="ss-ar.webp" as="image">
 <link rel="preload" href="app-icon-sm.png" as="image">
-<link rel="preload" href="poster-video.webp" as="image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
@@ -509,11 +508,16 @@ footer {
       <p class="sub">一分鐘感受山海經的奇幻世界</p>
     </div>
     <div class="video-wrapper fade-in" style="max-width:1100px;margin:0 auto;">
-      <video id="promoVideo" controls playsinline muted preload="none" poster="poster-video.webp"
-        style="width:100%;border-radius:20px;box-shadow:0 12px 60px rgba(0,0,0,0.6);border:1px solid rgba(201,168,76,0.2);">
-        <source src="promo-video.mp4" type="video/mp4">
-        您的瀏覽器不支援影片播放。
-      </video>
+      <div id="ytPlayer" style="position:relative;width:100%;padding-bottom:56.25%;border-radius:20px;overflow:hidden;box-shadow:0 12px 60px rgba(0,0,0,0.6);border:1px solid rgba(201,168,76,0.2);background:#000;cursor:pointer;">
+        <img id="ytThumb" src="https://img.youtube.com/vi/JhX15m4p7TM/maxresdefault.jpg" alt="播放宣傳片"
+          style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;" loading="lazy" decoding="async">
+        <div id="ytPlayBtn" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;">
+          <svg width="72" height="72" viewBox="0 0 72 72" fill="none" style="filter:drop-shadow(0 4px 12px rgba(0,0,0,0.5));">
+            <circle cx="36" cy="36" r="36" fill="rgba(0,0,0,0.6)"/>
+            <polygon points="28,20 56,36 28,52" fill="white"/>
+          </svg>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -727,31 +731,21 @@ function observeAll(){
 }
 observeAll();
 
-/* Lazy-load & auto-play video on scroll (buffered) */
+/* YouTube lite embed — click to load iframe */
 (function(){
-  const video = document.getElementById('promoVideo');
-  if(!video) return;
-  let loaded = false;
-  let readyToPlay = false;
-
-  video.addEventListener('canplaythrough', ()=>{ readyToPlay = true; }, {once:true});
-
-  const vObs = new IntersectionObserver((entries)=>{
-    entries.forEach(e=>{
-      if(e.isIntersecting){
-        if(!loaded){
-          video.preload='auto';
-          video.load();
-          loaded=true;
-        }
-        if(readyToPlay) video.play().catch(()=>{});
-        else video.addEventListener('canplaythrough', ()=>{ video.play().catch(()=>{}); }, {once:true});
-      } else {
-        video.pause();
-      }
-    });
-  },{threshold:0.15, rootMargin:'400px'});
-  vObs.observe(video);
+  const wrap = document.getElementById('ytPlayer');
+  if(!wrap) return;
+  wrap.addEventListener('click', function(){
+    const iframe = document.createElement('iframe');
+    iframe.src = 'https://www.youtube-nocookie.com/embed/JhX15m4p7TM?autoplay=1&rel=0&modestbranding=1';
+    iframe.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;border:none;';
+    iframe.allow = 'autoplay; encrypted-media; picture-in-picture';
+    iframe.allowFullscreen = true;
+    iframe.loading = 'lazy';
+    wrap.innerHTML = '';
+    wrap.appendChild(iframe);
+    wrap.style.cursor = 'default';
+  }, {once:true});
 })();
 </script>
 </body>
