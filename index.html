@@ -66,11 +66,17 @@ header .inner {
   display: flex; align-items: center; gap: 10px;
 }
 .logo img { width: 36px; height: 36px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.3); }
-.logo span {
+.logo-text { display: flex; flex-direction: column; line-height: 1; }
+.logo-title {
   font-family: "Noto Serif TC", serif;
-  font-size: 18px; font-weight: 900; letter-spacing: 3px;
+  font-size: 20px; font-weight: 900; letter-spacing: 3px;
   background: linear-gradient(135deg, var(--gold-l), var(--gold));
   -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+.logo-sub {
+  font-family: "Inter", sans-serif;
+  font-size: 9px; font-weight: 600; letter-spacing: 3.5px;
+  color: rgba(201,168,76,0.6); margin-top: 2px;
 }
 .nav-links { display: flex; align-items: center; gap: 32px; list-style: none; }
 .nav-links a {
@@ -378,7 +384,10 @@ footer {
   <div class="inner">
     <a class="logo" href="#">
       <img src="app-icon.png" alt="山海狩">
-      <span>山海狩</span>
+      <div class="logo-text">
+        <span class="logo-title">山海狩</span>
+        <span class="logo-sub">MYTHIC HUNT</span>
+      </div>
     </a>
     <ul class="nav-links">
       <li><a href="#news">最新公告</a></li>
@@ -578,7 +587,10 @@ footer {
       <div class="footer-brand">
         <div class="logo">
           <img src="app-icon.png" alt="山海狩" style="width:32px;height:32px;border-radius:8px;">
-          <span class="serif" style="font-size:17px;font-weight:900;letter-spacing:2px;">山海狩</span>
+          <div class="logo-text">
+            <span class="logo-title" style="font-size:17px;">山海狩</span>
+            <span class="logo-sub">MYTHIC HUNT</span>
+          </div>
         </div>
         <p>全港首個以《山海經》為藍本的 AR 增強現實手遊。神話不再只是傳說。</p>
       </div>
