@@ -8,528 +8,557 @@
 <meta name="description" content="全港首個以《山海經》為藍本的 AR 實境手遊。走進真實街頭，召喚上古神獸，開啟你的山海狩獵之旅。">
 <meta property="og:title" content="山海狩 Mythic Hunt — 全港首個 AR 山海經手遊">
 <meta property="og:description" content="神話不再只是傳說。全港首個以《山海經》為藍本的 AR 實境手遊，現已登陸 App Store。">
+<meta property="og:image" content="app-icon.png">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://aichinglife2-bit.github.io/mythic-hunt/">
+<link rel="icon" href="app-icon.png" type="image/png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
-  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+:root {
+  --gold: #c9a84c;
+  --gold-l: #f0dfa0;
+  --gold-d: #8a6d2b;
+  --bg: #09090b;
+  --surface: #111114;
+  --surface-2: #18181b;
+  --border: rgba(255,255,255,0.06);
+  --text: #fafafa;
+  --text-2: rgba(255,255,255,0.6);
+  --text-3: rgba(255,255,255,0.3);
+  --radius: 16px;
+  --max-w: 1100px;
+}
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg); color: var(--text);
+  font-family: "Inter", -apple-system, "PingFang TC", "Noto Sans TC", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+.serif { font-family: "Noto Serif TC", serif; }
+a { color: inherit; text-decoration: none; }
+img { display: block; max-width: 100%; }
 
-  :root {
-    --gold: #d4af55;
-    --gold-light: #f5e6c8;
-    --gold-dark: #a8872e;
-    --bg: #0a0a0f;
-    --card: rgba(255,255,255,0.04);
-    --card-border: rgba(255,255,255,0.06);
-    --text: rgba(255,255,255,0.85);
-    --text-dim: rgba(255,255,255,0.4);
-    --text-dimmer: rgba(255,255,255,0.2);
-  }
+/* ═══ UTILITY ═══ */
+.container { max-width: var(--max-w); margin: 0 auto; padding: 0 24px; }
+.fade-in { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease; }
+.fade-in.visible { opacity: 1; transform: translateY(0); }
 
-  html { scroll-behavior: smooth; }
+/* ═══ NAV ═══ */
+header {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  border-bottom: 1px solid transparent;
+  transition: all 0.35s;
+}
+header.scrolled {
+  background: rgba(9,9,11,0.92);
+  backdrop-filter: blur(24px) saturate(1.4);
+  border-bottom-color: var(--border);
+}
+header .inner {
+  max-width: var(--max-w); margin: 0 auto;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 16px 24px;
+}
+.logo {
+  display: flex; align-items: center; gap: 10px;
+}
+.logo img { width: 32px; height: 32px; border-radius: 8px; }
+.logo span {
+  font-family: "Noto Serif TC", serif;
+  font-size: 17px; font-weight: 900; letter-spacing: 2px;
+}
+.nav-links { display: flex; align-items: center; gap: 32px; list-style: none; }
+.nav-links a {
+  font-size: 13px; font-weight: 500; color: var(--text-2);
+  letter-spacing: 0.5px; transition: color 0.2s; position: relative;
+}
+.nav-links a:hover { color: var(--text); }
+.nav-links a::after {
+  content: ""; position: absolute; bottom: -4px; left: 0; right: 0;
+  height: 1px; background: var(--gold); transform: scaleX(0);
+  transition: transform 0.2s;
+}
+.nav-links a:hover::after { transform: scaleX(1); }
+.btn-cta {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: var(--gold); color: #000;
+  padding: 8px 20px; border-radius: 8px;
+  font-size: 13px; font-weight: 700; letter-spacing: 0.5px;
+  transition: all 0.25s; border: none; cursor: pointer;
+}
+.btn-cta:hover { background: var(--gold-l); transform: translateY(-1px); }
+.hamburger { display: none; background: none; border: none; color: var(--text); cursor: pointer; }
 
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: -apple-system, "PingFang TC", "Noto Sans TC", sans-serif;
-    overflow-x: hidden;
-    line-height: 1.6;
-  }
+/* ═══ HERO ═══ */
+.hero {
+  position: relative; min-height: 100dvh;
+  display: flex; align-items: center; justify-content: center;
+  padding: 120px 24px 80px; overflow: hidden;
+}
+.hero-bg {
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(201,168,76,0.08) 0%, transparent 50%),
+    radial-gradient(ellipse at 20% 80%, rgba(30,80,160,0.05) 0%, transparent 40%),
+    radial-gradient(ellipse at 80% 60%, rgba(201,168,76,0.04) 0%, transparent 35%);
+  pointer-events: none;
+}
+.hero-grid {
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+  background-size: 60px 60px;
+  mask-image: radial-gradient(ellipse at center, black 30%, transparent 70%);
+  pointer-events: none;
+}
+.hero .container {
+  position: relative; z-index: 1;
+  display: flex; align-items: center; gap: 64px;
+}
+.hero-content { flex: 1; }
+.hero-visual { flex-shrink: 0; }
 
-  /* ═══════ NAV ═══════ */
-  nav {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 14px 28px;
-    background: rgba(10,10,15,0.85);
-    backdrop-filter: blur(20px) saturate(1.5);
-    border-bottom: 1px solid rgba(255,255,255,0.05);
-    transition: background 0.3s;
-  }
-  .nav-logo {
-    font-family: "Noto Serif TC", serif;
-    font-size: 18px; font-weight: 900;
-    letter-spacing: 3px;
-    background: linear-gradient(135deg, var(--gold-light), var(--gold));
-    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-  .nav-links { display: flex; gap: 24px; list-style: none; }
-  .nav-links a {
-    color: var(--text-dim); text-decoration: none;
-    font-size: 13px; font-weight: 500; letter-spacing: 1px;
-    transition: color 0.2s;
-  }
-  .nav-links a:hover { color: var(--gold); }
-  .nav-download {
-    background: var(--gold); color: #000;
-    padding: 7px 18px; border-radius: 8px;
-    font-size: 12px; font-weight: 700;
-    text-decoration: none; letter-spacing: 1px;
-    transition: all 0.2s;
-  }
-  .nav-download:hover { background: var(--gold-light); transform: translateY(-1px); }
+.hero-tag {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(201,168,76,0.1);
+  border: 1px solid rgba(201,168,76,0.2);
+  border-radius: 100px; padding: 5px 16px;
+  font-size: 12px; font-weight: 600; color: var(--gold);
+  letter-spacing: 1.5px; margin-bottom: 28px;
+}
+.hero-tag .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--gold); animation: blink 2s infinite; }
+@keyframes blink { 0%,100%{opacity:.4} 50%{opacity:1} }
 
-  /* ═══════ HERO ═══════ */
-  .hero {
-    position: relative;
-    min-height: 100dvh;
-    display: flex; flex-direction: column;
-    align-items: center; justify-content: center;
-    padding: 100px 24px 60px;
-    text-align: center;
-    overflow: hidden;
-  }
-  .hero-glow {
-    position: absolute; top: -30%; left: 50%; transform: translateX(-50%);
-    width: 140%; height: 70%;
-    background: radial-gradient(ellipse, rgba(212,175,85,0.1) 0%, transparent 65%);
-    pointer-events: none;
-  }
-  .hero-glow-bottom {
-    position: absolute; bottom: -20%; left: 50%; transform: translateX(-50%);
-    width: 120%; height: 40%;
-    background: radial-gradient(ellipse, rgba(30,100,180,0.06) 0%, transparent 65%);
-    pointer-events: none;
-  }
+.hero h1 {
+  font-family: "Noto Serif TC", serif;
+  font-size: clamp(36px, 5.5vw, 56px); font-weight: 900;
+  line-height: 1.35; letter-spacing: 2px; margin-bottom: 20px;
+}
+.hero h1 .gold {
+  background: linear-gradient(135deg, var(--gold-l), var(--gold), var(--gold-d));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+.hero-p {
+  font-size: 16px; color: var(--text-2); line-height: 1.9;
+  max-width: 480px; margin-bottom: 36px;
+}
+.hero-actions { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+.btn-store {
+  display: inline-flex; align-items: center; gap: 10px;
+  background: #fff; color: #000; padding: 12px 28px;
+  border-radius: 12px; font-weight: 600; font-size: 15px;
+  transition: all 0.25s;
+  box-shadow: 0 2px 12px rgba(255,255,255,0.08);
+}
+.btn-store:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(255,255,255,0.12); }
+.btn-store svg { width: 24px; height: 24px; }
+.btn-secondary {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 12px 24px; border-radius: 12px;
+  border: 1px solid var(--border); color: var(--text-2);
+  font-size: 14px; font-weight: 500; transition: all 0.25s;
+}
+.btn-secondary:hover { border-color: rgba(255,255,255,0.15); color: var(--text); }
 
-  .hero-badge {
-    display: inline-flex; align-items: center; gap: 6px;
-    background: linear-gradient(135deg, rgba(212,175,85,0.15), rgba(212,175,85,0.05));
-    border: 1px solid rgba(212,175,85,0.25);
-    border-radius: 100px; padding: 6px 20px;
-    font-size: 12px; font-weight: 600; color: var(--gold);
-    letter-spacing: 1.5px; margin-bottom: 32px;
-    position: relative; z-index: 1;
-  }
-  .hero-badge::before { content: "★"; font-size: 10px; }
+/* Phone mockup */
+.phone-frame {
+  width: 260px; height: 530px;
+  background: #1a1a1e; border-radius: 40px;
+  padding: 12px; position: relative;
+  box-shadow: 0 30px 80px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.08);
+}
+.phone-frame::before {
+  content: ""; position: absolute; top: 12px; left: 50%; transform: translateX(-50%);
+  width: 80px; height: 24px; background: #1a1a1e; border-radius: 0 0 14px 14px; z-index: 2;
+}
+.phone-screen {
+  width: 100%; height: 100%; border-radius: 28px; overflow: hidden;
+  background: #000;
+}
+.phone-screen img { width: 100%; height: 100%; object-fit: cover; }
 
-  .hero h1 {
-    position: relative; z-index: 1;
-    font-family: "Noto Serif TC", serif;
-    font-size: clamp(32px, 7vw, 48px); font-weight: 900;
-    background: linear-gradient(180deg, var(--gold-light) 0%, var(--gold) 50%, var(--gold-dark) 100%);
-    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-    background-clip: text;
-    letter-spacing: 4px; line-height: 1.5; margin-bottom: 12px;
-  }
-  .hero-sub {
-    position: relative; z-index: 1;
-    font-size: 15px; color: var(--text-dim);
-    letter-spacing: 5px; margin-bottom: 44px;
-  }
+/* ═══ STATS BAR ═══ */
+.stats-bar {
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  padding: 40px 0;
+  background: var(--surface);
+}
+.stats-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  gap: 24px; text-align: center;
+}
+.stat-item .num {
+  font-family: "Noto Serif TC", serif;
+  font-size: 32px; font-weight: 900; color: var(--gold);
+  line-height: 1;
+}
+.stat-item .label { font-size: 13px; color: var(--text-3); margin-top: 6px; letter-spacing: 1px; }
 
-  .hero-icon-wrapper {
-    position: relative; z-index: 1; margin-bottom: 28px;
-  }
-  .hero-icon-glow {
-    position: absolute; inset: -24px; border-radius: 56px;
-    background: radial-gradient(circle, rgba(212,175,85,0.2) 0%, transparent 70%);
-    animation: pulse 4s ease-in-out infinite;
-  }
-  @keyframes pulse {
-    0%, 100% { opacity: 0.5; transform: scale(1); }
-    50% { opacity: 1; transform: scale(1.06); }
-  }
-  .hero-icon {
-    position: relative; width: 160px; height: 160px;
-    border-radius: 36px;
-    box-shadow: 0 16px 48px rgba(0,0,0,0.5), 0 0 0 1px rgba(212,175,85,0.15);
-  }
+/* ═══ SECTION COMMON ═══ */
+section { padding: 100px 0; }
+.sec-header { text-align: center; margin-bottom: 56px; }
+.sec-header .overline {
+  font-size: 12px; font-weight: 600; color: var(--gold);
+  letter-spacing: 3px; text-transform: uppercase; margin-bottom: 12px;
+}
+.sec-header h2 {
+  font-family: "Noto Serif TC", serif;
+  font-size: clamp(26px, 4vw, 36px); font-weight: 900;
+  letter-spacing: 2px;
+}
+.sec-header .sub { font-size: 15px; color: var(--text-2); margin-top: 12px; max-width: 560px; margin-inline: auto; line-height: 1.7; }
 
-  .hero-name {
-    position: relative; z-index: 1;
-    font-family: "Noto Serif TC", serif;
-    font-size: 26px; font-weight: 900; letter-spacing: 6px;
-    color: rgba(255,255,255,0.9); margin-bottom: 16px;
-  }
-  .hero-desc {
-    position: relative; z-index: 1;
-    font-size: 14px; color: var(--text-dim);
-    max-width: 360px; line-height: 1.9; margin-bottom: 40px;
-  }
-  .hero-desc strong { color: rgba(212,175,85,0.8); font-weight: 600; }
+/* ═══ ANNOUNCEMENTS ═══ */
+#news { background: var(--surface); border-top: 1px solid var(--border); }
+.news-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px; }
+.news-card {
+  background: var(--surface-2); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 28px;
+  transition: all 0.3s; position: relative; overflow: hidden;
+}
+.news-card::before {
+  content: ""; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  opacity: 0; transition: opacity 0.3s;
+}
+.news-card:hover { border-color: rgba(201,168,76,0.15); transform: translateY(-3px); }
+.news-card:hover::before { opacity: 1; }
+.news-meta { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+.news-tag {
+  font-size: 11px; font-weight: 700; letter-spacing: 1px;
+  padding: 2px 10px; border-radius: 4px;
+}
+.news-date { font-size: 12px; color: var(--text-3); }
+.news-title { font-size: 16px; font-weight: 700; margin-bottom: 10px; line-height: 1.5; }
+.news-body { font-size: 14px; color: var(--text-2); line-height: 1.8; }
 
-  .hero-buttons { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; gap: 20px; }
+/* ═══ FEATURES ═══ */
+#features { border-top: 1px solid var(--border); }
+.feat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.feat-card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 36px 24px;
+  text-align: center; transition: all 0.3s;
+}
+.feat-card:hover {
+  border-color: rgba(201,168,76,0.15);
+  background: rgba(201,168,76,0.03);
+  transform: translateY(-4px);
+}
+.feat-card .icon {
+  width: 56px; height: 56px; border-radius: 14px;
+  background: rgba(201,168,76,0.08); display: flex;
+  align-items: center; justify-content: center;
+  font-size: 28px; margin: 0 auto 18px;
+}
+.feat-card h3 { font-size: 16px; font-weight: 700; margin-bottom: 8px; }
+.feat-card p { font-size: 13px; color: var(--text-2); line-height: 1.7; }
 
-  .btn-appstore {
-    display: inline-flex; align-items: center; gap: 12px;
-    background: linear-gradient(135deg, #1a1a1a, #000);
-    color: #fff; text-decoration: none;
-    padding: 14px 36px; border-radius: 16px;
-    border: 1px solid rgba(255,255,255,0.08);
-    box-shadow: 0 4px 20px rgba(0,0,0,0.4);
-    transition: all 0.3s;
-  }
-  .btn-appstore:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 32px rgba(0,0,0,0.5), 0 0 20px rgba(212,175,85,0.12);
-    border-color: rgba(212,175,85,0.25);
-  }
-  .btn-appstore svg { width: 28px; height: 28px; }
-  .btn-appstore .label { display: flex; flex-direction: column; line-height: 1.2; }
-  .btn-appstore .label small { font-size: 11px; opacity: 0.7; }
-  .btn-appstore .label span { font-size: 20px; font-weight: 600; }
+/* ═══ GALLERY ═══ */
+#gallery { background: var(--surface); border-top: 1px solid var(--border); overflow: hidden; }
+.gallery-scroll {
+  display: flex; gap: 20px;
+  overflow-x: auto; scroll-snap-type: x mandatory;
+  padding: 0 24px 20px; -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.gallery-scroll::-webkit-scrollbar { display: none; }
+.gallery-item {
+  flex-shrink: 0; scroll-snap-align: center;
+  width: 220px; border-radius: 24px; overflow: hidden;
+  border: 1px solid var(--border);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+  transition: transform 0.3s;
+}
+.gallery-item:hover { transform: scale(1.03); }
+.gallery-item img { width: 100%; height: auto; display: block; }
 
-  .hero-qr { display: flex; flex-direction: column; align-items: center; gap: 6px; }
-  .hero-qr img {
-    width: 100px; height: 100px; border-radius: 12px;
-    background: #fff; padding: 4px;
-    box-shadow: 0 4px 16px rgba(0,0,0,0.3);
-  }
-  .hero-qr span { font-size: 10px; color: var(--text-dimmer); letter-spacing: 2px; }
+/* ═══ ABOUT ═══ */
+#about { border-top: 1px solid var(--border); }
+.about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; }
+.about-text p { font-size: 15px; color: var(--text-2); line-height: 2; margin-bottom: 20px; }
+.about-quote {
+  background: var(--surface); border-left: 3px solid var(--gold);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  padding: 24px 28px;
+}
+.about-quote p {
+  font-family: "Noto Serif TC", serif; font-size: 15px;
+  color: var(--text-3); font-style: italic; line-height: 2;
+  margin-bottom: 8px;
+}
+.about-quote cite { font-size: 12px; color: var(--gold-d); font-style: normal; }
 
-  /* ═══════ SECTIONS ═══════ */
-  section { padding: 80px 24px; max-width: 800px; margin: 0 auto; }
+/* ═══ DOWNLOAD CTA ═══ */
+#download {
+  border-top: 1px solid var(--border);
+  background:
+    linear-gradient(180deg, var(--bg) 0%, rgba(201,168,76,0.03) 50%, var(--bg) 100%);
+}
+.dl-box {
+  text-align: center;
+  max-width: 560px; margin: 0 auto;
+}
+.dl-box .icon-group {
+  display: flex; align-items: center; justify-content: center; gap: 20px;
+  margin-bottom: 24px;
+}
+.dl-box .icon-group img { width: 80px; height: 80px; border-radius: 20px; box-shadow: 0 8px 24px rgba(0,0,0,0.4); }
+.dl-box .icon-group .info { text-align: left; }
+.dl-box .icon-group .name {
+  font-family: "Noto Serif TC", serif; font-size: 24px; font-weight: 900; letter-spacing: 3px;
+}
+.dl-box .icon-group .sub { font-size: 13px; color: var(--text-3); margin-top: 2px; }
+.dl-box .desc { font-size: 14px; color: var(--text-2); line-height: 1.8; margin-bottom: 32px; }
+.dl-actions { display: flex; align-items: center; justify-content: center; gap: 24px; flex-wrap: wrap; }
+.dl-qr { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+.dl-qr img {
+  width: 120px; height: 120px; border-radius: 14px; background: #fff;
+  padding: 5px; box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+}
+.dl-qr span { font-size: 11px; color: var(--text-3); letter-spacing: 1px; }
 
-  .section-title {
-    text-align: center; margin-bottom: 48px;
-  }
-  .section-title h2 {
-    font-family: "Noto Serif TC", serif;
-    font-size: 28px; font-weight: 900;
-    background: linear-gradient(180deg, var(--gold-light), var(--gold));
-    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-    background-clip: text;
-    letter-spacing: 3px; margin-bottom: 8px;
-  }
-  .section-title p {
-    font-size: 13px; color: var(--text-dim); letter-spacing: 2px;
-  }
-  .section-divider {
-    width: 50px; height: 1px; margin: 0 auto 48px;
-    background: linear-gradient(90deg, transparent, rgba(212,175,85,0.4), transparent);
-  }
+/* ═══ FOOTER ═══ */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 56px 0 32px; background: var(--surface);
+}
+.footer-grid {
+  display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 40px; margin-bottom: 40px;
+}
+.footer-brand .logo { margin-bottom: 14px; }
+.footer-brand p { font-size: 13px; color: var(--text-3); line-height: 1.7; max-width: 280px; }
+.footer-col h4 {
+  font-size: 12px; font-weight: 700; color: var(--text-3);
+  letter-spacing: 2px; text-transform: uppercase; margin-bottom: 16px;
+}
+.footer-col ul { list-style: none; }
+.footer-col li { margin-bottom: 10px; }
+.footer-col a { font-size: 14px; color: var(--text-2); transition: color 0.2s; }
+.footer-col a:hover { color: var(--gold); }
+.footer-bottom {
+  border-top: 1px solid var(--border);
+  padding-top: 24px;
+  display: flex; justify-content: space-between; align-items: center;
+  font-size: 12px; color: var(--text-3);
+}
 
-  /* ═══════ ANNOUNCEMENTS ═══════ */
-  #announcements { border-top: 1px solid var(--card-border); }
-
-  .announce-list { display: flex; flex-direction: column; gap: 16px; }
-
-  .announce-card {
-    background: var(--card);
-    border: 1px solid var(--card-border);
-    border-radius: 16px; padding: 24px;
-    transition: all 0.3s;
-  }
-  .announce-card:hover {
-    background: rgba(212,175,85,0.04);
-    border-color: rgba(212,175,85,0.12);
-    transform: translateY(-2px);
-  }
-  .announce-header {
-    display: flex; align-items: center; gap: 12px;
-    margin-bottom: 10px; flex-wrap: wrap;
-  }
-  .announce-tag {
-    font-size: 11px; font-weight: 700; letter-spacing: 1px;
-    padding: 3px 10px; border-radius: 6px;
-    background: rgba(212,175,85,0.12); color: var(--gold);
-  }
-  .announce-date { font-size: 12px; color: var(--text-dimmer); }
-  .announce-title {
-    font-size: 17px; font-weight: 700; color: var(--text);
-    margin-bottom: 8px; line-height: 1.5;
-  }
-  .announce-content {
-    font-size: 14px; color: var(--text-dim); line-height: 1.8;
-  }
-  .announce-empty {
-    text-align: center; padding: 40px;
-    color: var(--text-dimmer); font-size: 14px;
-  }
-
-  /* ═══════ FEATURES ═══════ */
-  #features { border-top: 1px solid var(--card-border); }
-
-  .features-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 16px;
-  }
-  .feature-card {
-    background: var(--card);
-    border: 1px solid var(--card-border);
-    border-radius: 16px; padding: 28px 20px;
-    text-align: center; transition: all 0.3s;
-  }
-  .feature-card:hover {
-    background: rgba(212,175,85,0.04);
-    border-color: rgba(212,175,85,0.12);
-    transform: translateY(-3px);
-  }
-  .feature-card .icon { font-size: 36px; margin-bottom: 12px; }
-  .feature-card .title {
-    font-size: 15px; font-weight: 700; color: var(--text);
-    margin-bottom: 6px;
-  }
-  .feature-card .desc {
-    font-size: 12px; color: var(--text-dim); line-height: 1.6;
-  }
-
-  /* ═══════ ABOUT ═══════ */
-  #about { border-top: 1px solid var(--card-border); }
-
-  .about-content {
-    background: var(--card);
-    border: 1px solid var(--card-border);
-    border-radius: 20px; padding: 36px;
-    text-align: center;
-  }
-  .about-content p {
-    font-size: 14px; color: var(--text-dim); line-height: 2;
-    margin-bottom: 20px;
-  }
-  .about-content p:last-child { margin-bottom: 0; }
-
-  .about-quote {
-    font-family: "Noto Serif TC", serif;
-    font-style: italic; font-size: 15px;
-    color: rgba(255,255,255,0.25); line-height: 2;
-    margin-top: 24px; padding-top: 24px;
-    border-top: 1px solid var(--card-border);
-    letter-spacing: 1px;
-  }
-  .about-quote .src {
-    display: block; margin-top: 8px;
-    font-size: 12px; color: rgba(212,175,85,0.3);
-    font-style: normal;
-  }
-
-  /* ═══════ DOWNLOAD SECTION ═══════ */
-  #download {
-    border-top: 1px solid var(--card-border);
-    text-align: center;
-  }
-  .download-box {
-    background: linear-gradient(135deg, rgba(212,175,85,0.06), rgba(212,175,85,0.02));
-    border: 1px solid rgba(212,175,85,0.12);
-    border-radius: 24px; padding: 48px 32px;
-    display: flex; flex-direction: column; align-items: center; gap: 24px;
-  }
-  .download-box .icon-row {
-    display: flex; align-items: center; gap: 16px;
-  }
-  .download-box .icon-row img {
-    width: 72px; height: 72px; border-radius: 16px;
-    box-shadow: 0 4px 16px rgba(0,0,0,0.3);
-  }
-  .download-box .icon-row .info { text-align: left; }
-  .download-box .icon-row .info .name {
-    font-family: "Noto Serif TC", serif;
-    font-size: 22px; font-weight: 900; letter-spacing: 3px;
-  }
-  .download-box .icon-row .info .sub {
-    font-size: 12px; color: var(--text-dim);
-  }
-  .download-box .qr-row {
-    display: flex; align-items: center; gap: 24px;
-    flex-wrap: wrap; justify-content: center;
-  }
-  .download-box .qr-row img {
-    width: 110px; height: 110px; border-radius: 14px;
-    background: #fff; padding: 4px;
-    box-shadow: 0 4px 16px rgba(0,0,0,0.3);
-  }
-
-  /* ═══════ FOOTER ═══════ */
-  footer {
-    text-align: center; padding: 32px 24px;
-    border-top: 1px solid var(--card-border);
-  }
-  footer p {
-    font-size: 11px; color: var(--text-dimmer); letter-spacing: 1px;
-  }
-  footer .links { margin-top: 12px; }
-  footer .links a {
-    color: var(--text-dim); text-decoration: none;
-    font-size: 12px; margin: 0 12px;
-    transition: color 0.2s;
-  }
-  footer .links a:hover { color: var(--gold); }
-
-  /* ═══════ MOBILE ═══════ */
-  @media (max-width: 600px) {
-    nav { padding: 12px 16px; }
-    .nav-links { display: none; }
-    section { padding: 60px 16px; }
-    .features-grid { grid-template-columns: 1fr 1fr; }
-    .download-box { padding: 32px 20px; }
-  }
-
-  /* ═══════ INK PARTICLES ═══════ */
-  .ink {
-    position: fixed; border-radius: 50%;
-    opacity: 0; pointer-events: none;
-    animation: inkF 14s ease-in-out infinite;
-  }
-  @keyframes inkF {
-    0%   { opacity: 0; transform: translateY(15px) scale(0.8); }
-    25%  { opacity: 0.35; }
-    50%  { transform: translateY(-25px) scale(1.1); }
-    75%  { opacity: 0.25; }
-    100% { opacity: 0; transform: translateY(15px) scale(0.8); }
-  }
+/* ═══ MOBILE ═══ */
+@media (max-width: 768px) {
+  .hero .container { flex-direction: column; text-align: center; }
+  .hero-p { margin-inline: auto; }
+  .hero-actions { justify-content: center; }
+  .hero-visual { order: -1; }
+  .phone-frame { width: 200px; height: 410px; border-radius: 32px; padding: 10px; }
+  .phone-screen { border-radius: 22px; }
+  .stats-grid { grid-template-columns: repeat(2, 1fr); }
+  .feat-grid { grid-template-columns: 1fr; }
+  .about-grid { grid-template-columns: 1fr; }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+  .footer-bottom { flex-direction: column; gap: 8px; text-align: center; }
+  .nav-links { display: none; }
+  .hamburger { display: block; }
+  .news-grid { grid-template-columns: 1fr; }
+}
 </style>
 </head>
 <body>
 
-<!-- 墨跡粒子 -->
-<div class="ink" style="width:4px;height:4px;background:rgba(212,175,85,0.5);top:12%;left:18%;animation-delay:0s;"></div>
-<div class="ink" style="width:3px;height:3px;background:rgba(212,175,85,0.4);top:28%;right:14%;animation-delay:2.5s;"></div>
-<div class="ink" style="width:5px;height:5px;background:rgba(180,160,100,0.3);top:45%;left:8%;animation-delay:5s;"></div>
-<div class="ink" style="width:3px;height:3px;background:rgba(212,175,85,0.4);top:62%;right:22%;animation-delay:7s;"></div>
-<div class="ink" style="width:4px;height:4px;background:rgba(200,170,80,0.3);top:78%;left:20%;animation-delay:9s;"></div>
-
-<!-- NAV -->
-<nav>
-  <div class="nav-logo">山海狩</div>
-  <ul class="nav-links">
-    <li><a href="#announcements">公告</a></li>
-    <li><a href="#features">特色</a></li>
-    <li><a href="#about">關於</a></li>
-    <li><a href="#download">下載</a></li>
-  </ul>
-  <a class="nav-download" href="https://apps.apple.com/hk/app/%E5%B1%B1%E6%B5%B7%E7%8B%A9/id6759091771" target="_blank">立即下載</a>
-</nav>
+<!-- HEADER -->
+<header id="header">
+  <div class="inner">
+    <a class="logo" href="#">
+      <img src="app-icon.png" alt="山海狩">
+      <span>山海狩</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#news">最新公告</a></li>
+      <li><a href="#features">遊戲特色</a></li>
+      <li><a href="#gallery">遊戲畫面</a></li>
+      <li><a href="#about">關於</a></li>
+    </ul>
+    <a class="btn-cta" href="https://apps.apple.com/hk/app/%E5%B1%B1%E6%B5%B7%E7%8B%A9/id6759091771" target="_blank">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+      免費下載
+    </a>
+    <button class="hamburger" onclick="document.querySelector('.nav-links').style.display=this.dataset.open?'none':'flex';this.dataset.open=this.dataset.open?'':'1';" aria-label="Menu">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+    </button>
+  </div>
+</header>
 
 <!-- HERO -->
 <section class="hero">
-  <div class="hero-glow"></div>
-  <div class="hero-glow-bottom"></div>
-
-  <div class="hero-badge">全港首個 AR 山海經手遊</div>
-
-  <h1>神話走入現實<br>山海由你而狩</h1>
-  <div class="hero-sub">M Y T H I C &nbsp; H U N T</div>
-
-  <div class="hero-icon-wrapper">
-    <div class="hero-icon-glow"></div>
-    <img class="hero-icon" src="app-icon.png" alt="山海狩">
-  </div>
-  <div class="hero-name">山 海 狩</div>
-  <div class="hero-desc">
-    <strong>全港首個</strong>以中國古典神話《山海經》為藍本的 AR 實境手遊。<br>
-    走進真實街頭，喚醒沉睡千年的上古神獸——<br>
-    九尾狐、麒麟、燭龍、鳳凰⋯⋯就在你身邊。
-  </div>
-
-  <div class="hero-buttons">
-    <a class="btn-appstore" href="https://apps.apple.com/hk/app/%E5%B1%B1%E6%B5%B7%E7%8B%A9/id6759091771" target="_blank">
-      <svg viewBox="0 0 24 24" fill="white"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
-      <div class="label"><small>Download on the</small><span>App Store</span></div>
-    </a>
-    <div class="hero-qr">
-      <img src="qr-code.png" alt="QR Code">
-      <span>掃描 QR CODE 下載</span>
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="container">
+    <div class="hero-content">
+      <div class="hero-tag"><span class="dot"></span>全港首個 AR 山海經手遊</div>
+      <h1><span class="gold">神話走入現實</span><br>山海由你而狩</h1>
+      <p class="hero-p">
+        以中國古典神話《山海經》為藍本，結合 AR 增強現實與 GPS 定位技術。走進真實街頭，喚醒沉睡千年的上古神獸——九尾狐、麒麟、燭龍、鳳凰⋯⋯就在你身邊。
+      </p>
+      <div class="hero-actions">
+        <a class="btn-store" href="https://apps.apple.com/hk/app/%E5%B1%B1%E6%B5%B7%E7%8B%A9/id6759091771" target="_blank">
+          <svg viewBox="0 0 24 24" fill="black"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+          App Store 下載
+        </a>
+        <a class="btn-secondary" href="#gallery">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          瀏覽遊戲畫面
+        </a>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="phone-frame">
+        <div class="phone-screen">
+          <img src="ss-ar.png" alt="山海狩 AR 實景">
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- ANNOUNCEMENTS -->
-<section id="announcements">
-  <div class="section-title">
-    <h2>最新公告</h2>
-    <p>NEWS &amp; ANNOUNCEMENTS</p>
+<!-- STATS -->
+<div class="stats-bar">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="stat-item fade-in">
+        <div class="num">100+</div>
+        <div class="label">上古靈獸</div>
+      </div>
+      <div class="stat-item fade-in">
+        <div class="num">3</div>
+        <div class="label">進化階段</div>
+      </div>
+      <div class="stat-item fade-in">
+        <div class="num">AR</div>
+        <div class="label">增強現實技術</div>
+      </div>
+      <div class="stat-item fade-in">
+        <div class="num">GPS</div>
+        <div class="label">實景定位探索</div>
+      </div>
+    </div>
   </div>
-  <div class="section-divider"></div>
-  <div class="announce-list" id="announce-list">
-    <div class="announce-empty">載入中⋯</div>
+</div>
+
+<!-- NEWS -->
+<section id="news">
+  <div class="container">
+    <div class="sec-header fade-in">
+      <div class="overline">News</div>
+      <h2>最新公告</h2>
+      <p class="sub">遊戲最新動態、版本更新與活動資訊</p>
+    </div>
+    <div class="news-grid" id="news-list"></div>
   </div>
 </section>
 
 <!-- FEATURES -->
 <section id="features">
-  <div class="section-title">
-    <h2>遊戲特色</h2>
-    <p>GAME FEATURES</p>
+  <div class="container">
+    <div class="sec-header fade-in">
+      <div class="overline">Features</div>
+      <h2>遊戲特色</h2>
+      <p class="sub">融合東方神話美學與現代 AR 技術的沉浸式體驗</p>
+    </div>
+    <div class="feat-grid">
+      <div class="feat-card fade-in">
+        <div class="icon">🐉</div>
+        <h3>百種上古靈獸</h3>
+        <p>收錄超過百種源自《山海經》原典的靈獸，從九尾狐到燭龍，逐一收集、養成進化</p>
+      </div>
+      <div class="feat-card fade-in">
+        <div class="icon">📷</div>
+        <h3>AR 實境捕獲</h3>
+        <p>打開鏡頭即見 3D 神獸現身真實世界，街頭巷尾、公園地標皆是你的狩獵場</p>
+      </div>
+      <div class="feat-card fade-in">
+        <div class="icon">⚔️</div>
+        <h3>即時策略戰鬥</h3>
+        <p>靈獸對戰、煉化捕獲，運用元素相剋與技能搭配，考驗你的狩獵智慧</p>
+      </div>
+      <div class="feat-card fade-in">
+        <div class="icon">🌏</div>
+        <h3>GPS 戶外探索</h3>
+        <p>基於真實地理位置生成靈獸，越走越遠、越多發現，探索你的城市</p>
+      </div>
+      <div class="feat-card fade-in">
+        <div class="icon">🎭</div>
+        <h3>三階進化系統</h3>
+        <p>幼體→成長期→兇猛體，透過投餵、互動提升親密度，培育最強靈獸夥伴</p>
+      </div>
+      <div class="feat-card fade-in">
+        <div class="icon">👥</div>
+        <h3>附近玩家互動</h3>
+        <p>探索時邂逅其他獵人，觀看即時狩獵動態，感受山海世界的熱鬧氛圍</p>
+      </div>
+    </div>
   </div>
-  <div class="section-divider"></div>
-  <div class="features-grid">
-    <div class="feature-card">
-      <div class="icon">🐉</div>
-      <div class="title">百種上古靈獸</div>
-      <div class="desc">源自《山海經》原典<br>逐一收集、進化養成</div>
+</section>
+
+<!-- GALLERY -->
+<section id="gallery">
+  <div class="container">
+    <div class="sec-header fade-in">
+      <div class="overline">Gallery</div>
+      <h2>遊戲畫面</h2>
+      <p class="sub">沉浸式 AR 體驗，隨時隨地展開你的山海冒險</p>
     </div>
-    <div class="feature-card">
-      <div class="icon">📷</div>
-      <div class="title">AR 實境捕獲</div>
-      <div class="desc">打開鏡頭即見神獸<br>街頭巷尾皆是獵場</div>
-    </div>
-    <div class="feature-card">
-      <div class="icon">⚔️</div>
-      <div class="title">即時策略戰鬥</div>
-      <div class="desc">靈獸對戰、煉化捕獲<br>考驗你的狩獵智慧</div>
-    </div>
-    <div class="feature-card">
-      <div class="icon">🌏</div>
-      <div class="title">走出戶外探索</div>
-      <div class="desc">GPS 定位生成靈獸<br>越走越遠、越多發現</div>
-    </div>
-    <div class="feature-card">
-      <div class="icon">🎭</div>
-      <div class="title">三階進化系統</div>
-      <div class="desc">幼體→成長→兇猛<br>培育最強靈獸夥伴</div>
-    </div>
-    <div class="feature-card">
-      <div class="icon">👥</div>
-      <div class="title">附近玩家互動</div>
-      <div class="desc">探索時邂逅其他獵人<br>觀看即時狩獵動態</div>
-    </div>
+  </div>
+  <div class="gallery-scroll">
+    <div style="width:24px;flex-shrink:0;"></div>
+    <div class="gallery-item"><img src="ss-ar.png" alt="AR 探索"></div>
+    <div class="gallery-item"><img src="ss-creature.png" alt="靈獸詳情"></div>
+    <div class="gallery-item"><img src="ss-explore.png" alt="附近玩家"></div>
+    <div class="gallery-item"><img src="ss-companion.png" alt="夥伴模式"></div>
+    <div style="width:24px;flex-shrink:0;"></div>
   </div>
 </section>
 
 <!-- ABOUT -->
 <section id="about">
-  <div class="section-title">
-    <h2>關於山海狩</h2>
-    <p>ABOUT MYTHIC HUNT</p>
-  </div>
-  <div class="section-divider"></div>
-  <div class="about-content">
-    <p>
-      《山海狩》是全港首個以中國古典神話《山海經》為藍本的 AR 增強現實手遊。
-      我們將千年前的奇幻世界帶到現代城市，讓玩家透過手機鏡頭，
-      在真實的街道、公園、地標中發現隱藏的上古靈獸。
-    </p>
-    <p>
-      遊戲融合了 AR 實景技術、GPS 定位探索、即時戰鬥與養成收集系統，
-      為玩家打造沉浸式的神話狩獵體驗。每一隻靈獸都來自《山海經》原典記載，
-      忠於神話、重現經典。
-    </p>
-    <div class="about-quote">
-      「又東三百里，曰青丘之山。有獸焉，其狀如狐而九尾。」
-      <span class="src">——《山海經・南山經》</span>
+  <div class="container">
+    <div class="sec-header fade-in">
+      <div class="overline">About</div>
+      <h2>關於山海狩</h2>
+    </div>
+    <div class="about-grid">
+      <div class="about-text fade-in">
+        <p>《山海狩》是全港首個以中國古典神話《山海經》為藍本的 AR 增強現實手遊。我們將千年前的奇幻世界帶到現代城市，讓玩家透過手機鏡頭，在真實的街道、公園、地標中發現隱藏的上古靈獸。</p>
+        <p>遊戲融合了 AR 實景技術、GPS 定位探索、即時戰鬥與養成收集系統，為玩家打造沉浸式的神話狩獵體驗。每一隻靈獸都來自《山海經》原典記載，忠於神話、重現經典。</p>
+      </div>
+      <div class="about-quote fade-in">
+        <p>「又東三百里，曰青丘之山。有獸焉，其狀如狐而九尾，其音如嬰兒，能食人。食者不蠱。」</p>
+        <cite>——《山海經・南山經》</cite>
+      </div>
     </div>
   </div>
 </section>
 
 <!-- DOWNLOAD -->
 <section id="download">
-  <div class="section-title">
-    <h2>立即下載</h2>
-    <p>FREE DOWNLOAD</p>
-  </div>
-  <div class="section-divider"></div>
-  <div class="download-box">
-    <div class="icon-row">
-      <img src="app-icon.png" alt="山海狩">
-      <div class="info">
-        <div class="name">山海狩</div>
-        <div class="sub">Mythic Hunt — 免費下載 · iOS</div>
+  <div class="container">
+    <div class="dl-box fade-in">
+      <div class="sec-header">
+        <div class="overline">Download</div>
+        <h2>立即開始狩獵</h2>
+        <p class="sub">免費下載，即刻踏入山海世界</p>
       </div>
-    </div>
-    <a class="btn-appstore" href="https://apps.apple.com/hk/app/%E5%B1%B1%E6%B5%B7%E7%8B%A9/id6759091771" target="_blank">
-      <svg viewBox="0 0 24 24" fill="white"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
-      <div class="label"><small>Download on the</small><span>App Store</span></div>
-    </a>
-    <div class="qr-row">
-      <img src="qr-code.png" alt="QR Code">
-      <div style="text-align:left;">
-        <div style="font-size:14px;font-weight:600;margin-bottom:4px;">掃描 QR Code</div>
-        <div style="font-size:12px;color:var(--text-dim);line-height:1.6;">
-          使用手機相機掃描<br>即可跳轉 App Store 下載
+      <div class="dl-actions">
+        <a class="btn-store" href="https://apps.apple.com/hk/app/%E5%B1%B1%E6%B5%B7%E7%8B%A9/id6759091771" target="_blank">
+          <svg viewBox="0 0 24 24" fill="black"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+          App Store 免費下載
+        </a>
+        <div class="dl-qr">
+          <img src="qr-code.png" alt="QR Code">
+          <span>掃描 QR CODE</span>
         </div>
       </div>
     </div>
@@ -538,48 +567,75 @@
 
 <!-- FOOTER -->
 <footer>
-  <p>© 2026 山海狩 Mythic Hunt — All Rights Reserved</p>
-  <div class="links">
-    <a href="https://apps.apple.com/hk/app/%E5%B1%B1%E6%B5%B7%E7%8B%A9/id6759091771" target="_blank">App Store</a>
-    <a href="#announcements">公告</a>
-    <a href="mailto:aichinglife2@gmail.com">聯絡我們</a>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="logo">
+          <img src="app-icon.png" alt="山海狩" style="width:32px;height:32px;border-radius:8px;">
+          <span class="serif" style="font-size:17px;font-weight:900;letter-spacing:2px;">山海狩</span>
+        </div>
+        <p>全港首個以《山海經》為藍本的 AR 增強現實手遊。神話不再只是傳說。</p>
+      </div>
+      <div class="footer-col">
+        <h4>遊戲</h4>
+        <ul>
+          <li><a href="#features">遊戲特色</a></li>
+          <li><a href="#gallery">遊戲畫面</a></li>
+          <li><a href="#news">最新公告</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>下載</h4>
+        <ul>
+          <li><a href="https://apps.apple.com/hk/app/%E5%B1%B1%E6%B5%B7%E7%8B%A9/id6759091771" target="_blank">App Store</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>聯絡</h4>
+        <ul>
+          <li><a href="mailto:aichinglife2@gmail.com">電郵聯繫</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 山海狩 Mythic Hunt. All Rights Reserved.</span>
+      <span>Made in Hong Kong 🇭🇰</span>
+    </div>
   </div>
 </footer>
 
 <script>
-// 從 announcements.json 載入公告
+/* Announcements */
 fetch('announcements.json')
-  .then(r => r.json())
-  .then(data => {
-    const list = document.getElementById('announce-list');
-    if (!data.length) {
-      list.innerHTML = '<div class="announce-empty">暫無公告</div>';
-      return;
-    }
-    list.innerHTML = data
-      .sort((a, b) => b.id - a.id)
-      .map(a => `
-        <div class="announce-card">
-          <div class="announce-header">
-            <span class="announce-tag" style="background:${a.tagColor}20;color:${a.tagColor}">${a.tag}</span>
-            <span class="announce-date">${a.date}</span>
-          </div>
-          <div class="announce-title">${a.title}</div>
-          <div class="announce-content">${a.content}</div>
+  .then(r=>r.json())
+  .then(data=>{
+    const el=document.getElementById('news-list');
+    if(!data.length){el.innerHTML='<p style="text-align:center;color:var(--text-3)">暫無公告</p>';return;}
+    el.innerHTML=data.sort((a,b)=>b.id-a.id).map(a=>`
+      <div class="news-card fade-in">
+        <div class="news-meta">
+          <span class="news-tag" style="background:${a.tagColor}18;color:${a.tagColor}">${a.tag}</span>
+          <span class="news-date">${a.date}</span>
         </div>
-      `).join('');
+        <div class="news-title">${a.title}</div>
+        <div class="news-body">${a.content}</div>
+      </div>`).join('');
+    observeAll();
   })
-  .catch(() => {
-    document.getElementById('announce-list').innerHTML =
-      '<div class="announce-empty">暫無公告</div>';
-  });
+  .catch(()=>{document.getElementById('news-list').innerHTML='<p style="text-align:center;color:var(--text-3)">暫無公告</p>';});
 
-// 滾動時 nav 加深
-window.addEventListener('scroll', () => {
-  document.querySelector('nav').style.background =
-    window.scrollY > 50 ? 'rgba(10,10,15,0.95)' : 'rgba(10,10,15,0.85)';
-});
+/* Scroll header */
+const hdr=document.getElementById('header');
+window.addEventListener('scroll',()=>{hdr.classList.toggle('scrolled',window.scrollY>40);},{passive:true});
+
+/* Fade-in observer */
+function observeAll(){
+  const obs=new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}});
+  },{threshold:0.15});
+  document.querySelectorAll('.fade-in:not(.visible)').forEach(el=>obs.observe(el));
+}
+observeAll();
 </script>
-
 </body>
 </html>
