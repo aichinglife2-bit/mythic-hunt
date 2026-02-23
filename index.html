@@ -135,11 +135,12 @@ header .inner {
 .hero-tag .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--gold); animation: blink 2s infinite; }
 @keyframes blink { 0%,100%{opacity:.4} 50%{opacity:1} }
 
-.hero h1 {
-  font-family: "Noto Serif TC", serif;
-  font-size: clamp(36px, 5.5vw, 56px); font-weight: 900;
-  line-height: 1.35; letter-spacing: 2px; margin-bottom: 20px;
-}
+  .hero h1 {
+    font-family: "Noto Serif TC", serif;
+    font-size: clamp(44px, 8vw, 72px); font-weight: 900;
+    line-height: 1.25; letter-spacing: 4px; margin-bottom: 24px;
+    text-shadow: 0 4px 30px rgba(201,168,76,0.15);
+  }
 .hero h1 .gold {
   background: linear-gradient(135deg, var(--gold-l), var(--gold), var(--gold-d));
   -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
@@ -402,8 +403,8 @@ footer {
   <div class="hero-grid"></div>
   <div class="container">
     <div class="hero-content">
-      <div class="hero-tag"><span class="dot"></span>全港首個 AR 山海經手遊</div>
-      <h1><span class="gold">神話走入現實</span><br>山海由你而狩</h1>
+      <h1><span class="gold">全港首個</span><br>AR 山海經手遊</h1>
+      <div class="hero-tag"><span class="dot"></span>現已登陸 App Store — 免費下載</div>
       <p class="hero-p">
         以中國古典神話《山海經》為藍本，結合 AR 增強現實與 GPS 定位技術。走進真實街頭，喚醒沉睡千年的上古神獸——九尾狐、麒麟、燭龍、鳳凰⋯⋯就在你身邊。
       </p>
