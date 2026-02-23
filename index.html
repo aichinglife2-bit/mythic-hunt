@@ -17,9 +17,11 @@
 <meta name="twitter:title" content="山海狩 Mythic Hunt — 全港首個 AR 山海經手遊">
 <meta name="twitter:description" content="神話不再只是傳說。全港首個以《山海經》為藍本的 AR 實境手遊，現已登陸 App Store。">
 <meta name="twitter:image" content="https://www.mythic-hunt.com/og-image.png">
-<link rel="icon" href="app-icon.png" type="image/png">
+<link rel="icon" href="favicon.png" type="image/png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"></noscript>
 <style>
 *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
 :root {
@@ -404,7 +406,7 @@ footer {
 <header id="header">
   <div class="inner">
     <a class="logo" href="#">
-      <img src="app-icon.png" alt="山海狩">
+      <img src="app-icon-sm.png" alt="山海狩" width="36" height="36">
       <div class="logo-text">
         <span class="logo-title">山海狩</span>
         <span class="logo-sub">MYTHIC HUNT</span>
@@ -455,7 +457,7 @@ footer {
     <div class="hero-visual">
       <div class="phone-frame">
         <div class="phone-screen">
-          <img src="ss-ar.png" alt="山海狩 AR 實景">
+          <img src="ss-ar.webp" alt="山海狩 AR 實景">
         </div>
       </div>
     </div>
@@ -495,7 +497,7 @@ footer {
       <p class="sub">一分鐘感受山海經的奇幻世界</p>
     </div>
     <div class="video-wrapper fade-in" style="max-width:1100px;margin:0 auto;">
-      <video id="promoVideo" controls playsinline muted preload="metadata" poster="poster-video.jpg"
+      <video id="promoVideo" controls playsinline muted preload="none" poster="poster-video.webp"
         style="width:100%;border-radius:20px;box-shadow:0 12px 60px rgba(0,0,0,0.6);border:1px solid rgba(201,168,76,0.2);">
         <source src="promo-video.mp4" type="video/mp4">
         您的瀏覽器不支援影片播放。
@@ -570,11 +572,11 @@ footer {
   </div>
   <div class="gallery-scroll">
     <div style="width:24px;flex-shrink:0;"></div>
-    <div class="gallery-item"><img src="ss-keyart.png" alt="山海狩主視覺"></div>
-    <div class="gallery-item"><img src="ss-ar.png" alt="AR 夥伴實景"></div>
-    <div class="gallery-item"><img src="ss-creature.png" alt="靈獸戰鬥"></div>
-    <div class="gallery-item"><img src="ss-battle.png" alt="培養與戰鬥系統"></div>
-    <div class="gallery-item"><img src="ss-map.png" alt="地圖探索"></div>
+    <div class="gallery-item"><img src="ss-keyart.webp" alt="山海狩主視覺" loading="lazy"></div>
+    <div class="gallery-item"><img src="ss-ar.webp" alt="AR 夥伴實景" loading="lazy"></div>
+    <div class="gallery-item"><img src="ss-creature.webp" alt="靈獸戰鬥" loading="lazy"></div>
+    <div class="gallery-item"><img src="ss-battle.webp" alt="培養與戰鬥系統" loading="lazy"></div>
+    <div class="gallery-item"><img src="ss-map.webp" alt="地圖探索" loading="lazy"></div>
     <div style="width:24px;flex-shrink:0;"></div>
   </div>
 </section>
@@ -614,7 +616,7 @@ footer {
           App Store 免費下載
         </a>
         <div class="dl-qr">
-          <img src="qr-code.png" alt="QR Code">
+          <img src="qr-code.webp" alt="QR Code" loading="lazy">
           <span>掃描 QR CODE</span>
         </div>
       </div>
@@ -628,7 +630,7 @@ footer {
     <div class="footer-grid">
       <div class="footer-brand">
         <div class="logo">
-          <img src="app-icon.png" alt="山海狩" style="width:32px;height:32px;border-radius:8px;">
+          <img src="app-icon-sm.png" alt="山海狩" style="width:32px;height:32px;border-radius:8px;" loading="lazy">
           <div class="logo-text">
             <span class="logo-title" style="font-size:17px;">山海狩</span>
             <span class="logo-sub">MYTHIC HUNT</span>
@@ -713,19 +715,21 @@ function observeAll(){
 }
 observeAll();
 
-/* Auto-play video on scroll */
+/* Lazy-load & auto-play video on scroll */
 (function(){
   const video = document.getElementById('promoVideo');
   if(!video) return;
+  let loaded = false;
   const vObs = new IntersectionObserver((entries)=>{
     entries.forEach(e=>{
       if(e.isIntersecting){
+        if(!loaded){ video.preload='metadata'; video.load(); loaded=true; }
         video.play().catch(()=>{});
       } else {
         video.pause();
       }
     });
-  },{threshold:0.4});
+  },{threshold:0.2, rootMargin:'200px'});
   vObs.observe(video);
 })();
 </script>
