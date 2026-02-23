@@ -20,9 +20,14 @@ header{background:rgba(9,9,11,0.9);backdrop-filter:blur(20px);border-bottom:1px 
 h1{font-family:"Noto Serif TC",serif;font-size:32px;font-weight:900;letter-spacing:2px;margin-bottom:8px;}
 .updated{font-size:13px;color:var(--text-3);margin-bottom:48px;}
 h2{font-size:18px;font-weight:700;margin:40px 0 16px;color:var(--gold-l);letter-spacing:1px;}
+h3{font-size:15px;font-weight:600;margin:20px 0 10px;color:var(--text);}
 p,li{font-size:15px;color:var(--text-2);margin-bottom:12px;}
 ul{padding-left:20px;margin-bottom:16px;}
 li{margin-bottom:8px;}
+table{width:100%;border-collapse:collapse;margin:16px 0;}
+th,td{text-align:left;padding:10px 12px;font-size:14px;border-bottom:1px solid var(--border);}
+th{color:var(--gold);font-weight:600;font-size:13px;letter-spacing:1px;}
+td{color:var(--text-2);}
 footer{border-top:1px solid var(--border);padding:24px;text-align:center;font-size:12px;color:var(--text-3);}
 </style>
 </head>
@@ -33,66 +38,105 @@ footer{border-top:1px solid var(--border);padding:24px;text-align:center;font-si
 </header>
 <div class="container">
 <h1>隱私政策</h1>
-<p class="updated">最後更新日期：2026 年 2 月 23 日</p>
+<p class="updated">最後更新日期：2026 年 2 月 23 日 ｜ 適用版本：山海狩 v1.0+（App Store 分級：9+）</p>
 
 <p>山海狩（「Mythic Hunt」，以下簡稱「本遊戲」或「我們」）重視您的隱私。本隱私政策說明我們如何收集、使用和保護您在使用本遊戲時提供的個人資料。</p>
 
 <h2>1. 我們收集的資料</h2>
-<p>當您使用本遊戲時，我們可能收集以下類型的資料：</p>
+
+<h3>1.1 帳戶與身份資料</h3>
+<table>
+  <tr><th>資料類型</th><th>收集時機</th><th>用途</th></tr>
+  <tr><td>電郵地址</td><td>Email 註冊 / Google 登入</td><td>帳戶驗證與找回</td></tr>
+  <tr><td>手機號碼</td><td>手機 SMS 驗證碼登入</td><td>帳戶驗證</td></tr>
+  <tr><td>Apple ID 標識符</td><td>Apple Sign In 登入</td><td>帳戶驗證</td></tr>
+  <tr><td>Google 帳號基本資料</td><td>Google Sign In 登入</td><td>帳戶驗證</td></tr>
+</table>
+<p>您亦可選擇以<strong>訪客模式</strong>進入遊戲，無需提供任何個人身份資料。</p>
+
+<h3>1.2 位置資料</h3>
+<p>本遊戲的核心玩法需要存取您的裝置 GPS 位置，用於：</p>
 <ul>
-  <li><strong>帳戶資料：</strong>電郵地址、手機號碼（用於註冊和登入）</li>
-  <li><strong>第三方登入資料：</strong>透過 Apple ID 或 Google 帳號登入時提供的基本個人資料</li>
-  <li><strong>位置資料：</strong>GPS 位置（用於遊戲核心的 AR 探索和靈獸生成功能）</li>
-  <li><strong>裝置資料：</strong>裝置型號、作業系統版本（用於優化遊戲體驗）</li>
-  <li><strong>遊戲資料：</strong>遊戲進度、靈獸收集紀錄、道具和貨幣餘額</li>
-  <li><strong>使用統計：</strong>App 啟動次數、使用時長（用於改善遊戲品質）</li>
+  <li>在您的真實位置周圍生成靈獸（探索模式）</li>
+  <li>在地圖上顯示附近的靈獸和遊戲元素（獸城地圖）</li>
+  <li>AR 實景功能的空間定位（神界 AR 模式）</li>
 </ul>
+<p>位置資料僅在遊戲使用期間收集（「使用 App 期間」權限），不會在背景持續追蹤。</p>
+
+<h3>1.3 相機存取</h3>
+<p>本遊戲使用 ARKit 框架存取您的裝置相機，用於 AR 增強現實體驗（靈獸捕獲、夥伴互動、煉化等）。相機影像僅在裝置端即時處理，<strong>不會被錄製、儲存或傳輸至伺服器</strong>。</p>
+
+<h3>1.4 遊戲資料</h3>
+<p>在遊戲過程中，我們會儲存以下資料以提供遊戲服務：</p>
+<ul>
+  <li><strong>玩家檔案：</strong>暱稱、等級、經驗值、靈金餘額、頭像</li>
+  <li><strong>靈獸資料：</strong>已捕捉的靈獸、等級、親密度、進化階段</li>
+  <li><strong>道具背包：</strong>煉化丹、靈食、誘餌、經驗丹等道具數量</li>
+  <li><strong>消費紀錄：</strong>靈金充值與消費記錄（用於消費回饋計算）</li>
+  <li><strong>遊戲偏好：</strong>語言設定、音效開關、BGM 設定</li>
+</ul>
+
+<h3>1.5 裝置與使用統計</h3>
+<ul>
+  <li><strong>匿名裝置識別碼：</strong>本地生成的 UUID（非 Apple IDFA），用於統計每日活躍用戶</li>
+  <li><strong>App 啟動次數與日期：</strong>用於改善遊戲品質</li>
+</ul>
+<p>我們<strong>不使用</strong> App Tracking Transparency (ATT) 框架，<strong>不追蹤</strong>您在其他 App 或網站上的活動。</p>
 
 <h2>2. 資料使用方式</h2>
 <p>我們收集的資料僅用於以下目的：</p>
 <ul>
-  <li>提供和維護遊戲核心功能（AR 探索、靈獸捕獲、戰鬥系統）</li>
-  <li>處理帳戶註冊和登入驗證</li>
-  <li>基於地理位置生成靈獸和遊戲內容</li>
-  <li>儲存和同步您的遊戲進度</li>
+  <li>提供遊戲核心功能：AR 探索、靈獸捕獲與煉化、戰鬥、夥伴養成</li>
+  <li>處理帳戶註冊、登入驗證和帳號綁定</li>
+  <li>基於 GPS 位置生成靈獸和地圖內容</li>
+  <li>雲端儲存和同步遊戲進度（跨裝置）</li>
+  <li>處理天巿（商店）的靈金充值和道具購買</li>
+  <li>計算消費回饋（每消費 HK$100 返 5 靈金）</li>
+  <li>發送遊戲內公告和版本更新通知</li>
   <li>改善遊戲效能和用戶體驗</li>
-  <li>發送遊戲內公告和更新通知</li>
 </ul>
 
 <h2>3. 資料儲存與安全</h2>
-<p>您的遊戲資料儲存於 Google Firebase 雲端平台，採用行業標準的加密傳輸（TLS/SSL）和存取控制機制。我們採取合理的技術和組織措施來保護您的個人資料免受未經授權的存取、使用或洩露。</p>
+<p>您的遊戲資料儲存於 <strong>Google Firebase</strong> 雲端平台（Firestore 資料庫），採用：</p>
+<ul>
+  <li>TLS/SSL 加密傳輸</li>
+  <li>Firebase Security Rules 存取控制（僅限帳戶擁有者讀寫自己的資料）</li>
+  <li>Firebase Authentication 身份驗證</li>
+</ul>
+<p>部份偏好設定（語言、音效開關等）儲存於裝置本地（UserDefaults），不會傳輸至雲端。</p>
 
 <h2>4. 第三方服務</h2>
-<p>本遊戲使用以下第三方服務：</p>
-<ul>
-  <li><strong>Firebase（Google）：</strong>帳戶驗證、雲端資料儲存、使用分析</li>
-  <li><strong>Apple MapKit：</strong>地圖顯示功能</li>
-  <li><strong>Apple Sign In / Google Sign In：</strong>第三方登入服務</li>
-</ul>
-<p>這些第三方服務各自有其隱私政策，建議您參閱相關條款。</p>
+<table>
+  <tr><th>服務</th><th>提供者</th><th>用途</th><th>隱私政策</th></tr>
+  <tr><td>Firebase Auth</td><td>Google</td><td>帳戶驗證</td><td><a href="https://firebase.google.com/support/privacy" target="_blank">連結</a></td></tr>
+  <tr><td>Cloud Firestore</td><td>Google</td><td>雲端資料儲存</td><td><a href="https://firebase.google.com/support/privacy" target="_blank">連結</a></td></tr>
+  <tr><td>Apple Sign In</td><td>Apple</td><td>第三方登入</td><td><a href="https://www.apple.com/legal/privacy/" target="_blank">連結</a></td></tr>
+  <tr><td>Google Sign In</td><td>Google</td><td>第三方登入</td><td><a href="https://policies.google.com/privacy" target="_blank">連結</a></td></tr>
+  <tr><td>Apple MapKit</td><td>Apple</td><td>地圖顯示</td><td><a href="https://www.apple.com/legal/privacy/" target="_blank">連結</a></td></tr>
+  <tr><td>StoreKit 2</td><td>Apple</td><td>應用內購買</td><td><a href="https://www.apple.com/legal/privacy/" target="_blank">連結</a></td></tr>
+</table>
 
-<h2>5. 位置資料</h2>
-<p>本遊戲的核心玩法需要存取您的裝置位置。位置資料僅在遊戲運行時使用，用於：</p>
-<ul>
-  <li>在您的真實位置周圍生成靈獸</li>
-  <li>在地圖上顯示附近的靈獸和遊戲元素</li>
-  <li>AR 實景功能的空間定位</li>
-</ul>
-<p>您可以隨時在裝置設定中撤銷位置權限，但這將影響遊戲的核心功能。</p>
+<h2>5. 應用內購買</h2>
+<p>本遊戲提供靈金充值服務（透過 Apple StoreKit 2 處理）。所有付款由 Apple 處理，我們<strong>不會收集或儲存</strong>您的信用卡、銀行帳戶或 Apple Pay 資料。我們僅記錄交易完成後的靈金數量和累計消費金額（用於計算消費回饋）。</p>
 
-<h2>6. 您的權利</h2>
+<h2>6. 社交分享</h2>
+<p>本遊戲支援分享功能（Instagram、WhatsApp、WeChat、Facebook 等）。分享操作由您的裝置系統處理，我們僅記錄每日分享次數（用於計算分享獎勵），不會存取您的社交帳號或聯絡人資料。</p>
+
+<h2>7. 您的權利</h2>
 <p>您有權：</p>
 <ul>
   <li>查閱我們持有的您的個人資料</li>
   <li>要求更正不準確的資料</li>
-  <li>要求刪除您的帳戶和相關資料</li>
-  <li>撤銷對資料收集的同意</li>
+  <li>要求刪除您的帳戶和所有相關資料</li>
+  <li>隨時在裝置設定中撤銷位置或相機權限</li>
+  <li>選擇以訪客模式使用遊戲，減少個人資料收集</li>
 </ul>
+<p>如需行使上述權利，請聯繫：<a href="mailto:aichinglife2@gmail.com">aichinglife2@gmail.com</a></p>
 
-<h2>7. 政策更新</h2>
+<h2>8. 政策更新</h2>
 <p>我們可能會不時更新本隱私政策。任何重大變更將通過遊戲內公告或本頁面通知您。繼續使用本遊戲即表示您同意更新後的政策。</p>
 
-<h2>8. 聯絡我們</h2>
+<h2>9. 聯絡我們</h2>
 <p>如對本隱私政策有任何疑問，請透過以下方式聯繫我們：</p>
 <p>電郵：<a href="mailto:aichinglife2@gmail.com">aichinglife2@gmail.com</a></p>
 </div>

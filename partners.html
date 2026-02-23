@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>合作與招聘 — 山海狩 Mythic Hunt</title>
+<link rel="icon" href="app-icon.png" type="image/png">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{--bg:#09090b;--surface:#111114;--surface-2:#18181b;--border:rgba(255,255,255,0.06);--gold:#c9a84c;--gold-l:#f0dfa0;--gold-d:#8a6d2b;--text:#fafafa;--text-2:rgba(255,255,255,0.6);--text-3:rgba(255,255,255,0.3);--radius:16px;}
+body{background:var(--bg);color:var(--text);font-family:"Inter",-apple-system,"PingFang TC","Noto Sans TC",sans-serif;-webkit-font-smoothing:antialiased;line-height:1.8;}
+a{color:var(--gold);text-decoration:none;}a:hover{text-decoration:underline;}
+header{background:rgba(9,9,11,0.9);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:14px 32px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:10;}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--text);}
+.logo img{width:32px;height:32px;border-radius:8px;}
+.logo span{font-family:"Noto Serif TC",serif;font-size:17px;font-weight:900;letter-spacing:2px;background:linear-gradient(135deg,var(--gold-l),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.back{font-size:13px;color:var(--text-2);}
+
+.hero-mini{text-align:center;padding:80px 24px 48px;position:relative;overflow:hidden;}
+.hero-mini::before{content:"";position:absolute;top:-40%;left:50%;transform:translateX(-50%);width:140%;height:80%;background:radial-gradient(ellipse,rgba(201,168,76,0.06) 0%,transparent 55%);pointer-events:none;}
+.hero-mini h1{font-family:"Noto Serif TC",serif;font-size:36px;font-weight:900;letter-spacing:3px;margin-bottom:12px;position:relative;}
+.hero-mini h1 .gold{background:linear-gradient(135deg,var(--gold-l),var(--gold),var(--gold-d));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.hero-mini p{font-size:16px;color:var(--text-2);max-width:520px;margin:0 auto;position:relative;}
+
+.container{max-width:900px;margin:0 auto;padding:0 24px;}
+section{padding:64px 0;}
+.sec-title{text-align:center;margin-bottom:40px;}
+.sec-title .overline{font-size:12px;font-weight:600;color:var(--gold);letter-spacing:3px;text-transform:uppercase;margin-bottom:8px;}
+.sec-title h2{font-family:"Noto Serif TC",serif;font-size:28px;font-weight:900;letter-spacing:2px;}
+
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:20px;}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:32px 24px;transition:all 0.3s;position:relative;overflow:hidden;}
+.card::before{content:"";position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent);opacity:0;transition:opacity 0.3s;}
+.card:hover{border-color:rgba(201,168,76,0.15);transform:translateY(-3px);}
+.card:hover::before{opacity:1;}
+.card .icon{font-size:36px;margin-bottom:16px;}
+.card h3{font-size:18px;font-weight:700;margin-bottom:8px;}
+.card p{font-size:14px;color:var(--text-2);line-height:1.7;margin-bottom:16px;}
+.card ul{padding-left:18px;margin-bottom:16px;}
+.card li{font-size:13px;color:var(--text-2);margin-bottom:6px;}
+
+.tag{display:inline-block;font-size:11px;font-weight:700;letter-spacing:1px;padding:3px 10px;border-radius:4px;margin-bottom:16px;}
+.tag-ad{background:rgba(76,175,80,0.12);color:#66bb6a;}
+.tag-agent{background:rgba(33,150,243,0.12);color:#42a5f5;}
+.tag-kol{background:rgba(255,152,0,0.12);color:#ffa726;}
+.tag-hire{background:rgba(156,39,176,0.12);color:#ba68c8;}
+
+.btn-mail{display:inline-flex;align-items:center;gap:6px;background:var(--gold);color:#000;padding:8px 18px;border-radius:8px;font-size:13px;font-weight:700;transition:all 0.2s;text-decoration:none;}
+.btn-mail:hover{background:var(--gold-l);transform:translateY(-1px);text-decoration:none;}
+
+.cta-box{text-align:center;padding:64px 24px;border-top:1px solid var(--border);background:linear-gradient(180deg,var(--bg),rgba(201,168,76,0.02),var(--bg));}
+.cta-box h2{font-family:"Noto Serif TC",serif;font-size:26px;font-weight:900;margin-bottom:12px;letter-spacing:2px;}
+.cta-box p{font-size:15px;color:var(--text-2);margin-bottom:24px;}
+.cta-box .email{font-size:20px;font-weight:700;color:var(--gold);letter-spacing:1px;}
+
+footer{border-top:1px solid var(--border);padding:24px;text-align:center;font-size:12px;color:var(--text-3);}
+
+@media(max-width:600px){
+  .hero-mini h1{font-size:28px;}
+  .cards{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+<header>
+  <a class="logo" href="index.html"><img src="app-icon.png" alt="山海狩"><span>山海狩</span></a>
+  <a class="back" href="index.html">← 返回首頁</a>
+</header>
+
+<div class="hero-mini">
+  <h1><span class="gold">商務合作</span>與人才招聘</h1>
+  <p>與山海狩攜手，共同開拓 AR 手遊市場。我們歡迎各類合作夥伴和優秀人才加入。</p>
+</div>
+
+<!-- 合作 -->
+<section>
+  <div class="container">
+    <div class="sec-title">
+      <div class="overline">Partnership</div>
+      <h2>合作方式</h2>
+    </div>
+    <div class="cards">
+
+      <div class="card">
+        <div class="icon">📢</div>
+        <span class="tag tag-ad">廣告合作</span>
+        <h3>品牌廣告投放</h3>
+        <p>在山海狩遊戲內或官方渠道進行品牌曝光，觸達高質量年輕用戶群。</p>
+        <ul>
+          <li>遊戲內原生廣告展示</li>
+          <li>開屏廣告 / 公告橫幅</li>
+          <li>品牌聯名活動靈獸</li>
+          <li>官方社群媒體推廣</li>
+        </ul>
+        <a class="btn-mail" href="mailto:aichinglife2@gmail.com?subject=廣告合作洽談 — 山海狩">聯繫洽談 →</a>
+      </div>
+
+      <div class="card">
+        <div class="icon">🤝</div>
+        <span class="tag tag-agent">代理合作</span>
+        <h3>區域代理 / 發行合作</h3>
+        <p>誠邀各地區代理商和發行夥伴，共同將山海狩帶到更多市場。</p>
+        <ul>
+          <li>大中華區域獨家代理</li>
+          <li>東南亞市場發行合作</li>
+          <li>海外本地化合作</li>
+          <li>線下活動與推廣合作</li>
+        </ul>
+        <a class="btn-mail" href="mailto:aichinglife2@gmail.com?subject=代理合作洽談 — 山海狩">聯繫洽談 →</a>
+      </div>
+
+      <div class="card">
+        <div class="icon">🎬</div>
+        <span class="tag tag-kol">KOL / 網紅合作</span>
+        <h3>內容創作者合作</h3>
+        <p>歡迎遊戲實況主、YouTuber、Instagram 網紅體驗山海狩並分享創作。</p>
+        <ul>
+          <li>遊戲搶先體驗資格</li>
+          <li>專屬靈金禮包與兌換碼</li>
+          <li>聯名內容創作支援</li>
+          <li>社群推廣分潤計劃</li>
+        </ul>
+        <a class="btn-mail" href="mailto:aichinglife2@gmail.com?subject=KOL 合作洽談 — 山海狩">聯繫洽談 →</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- 招聘 -->
+<section style="border-top:1px solid var(--border);">
+  <div class="container">
+    <div class="sec-title">
+      <div class="overline">Careers</div>
+      <h2>人才招聘</h2>
+    </div>
+    <div class="cards">
+
+      <div class="card">
+        <div class="icon">💻</div>
+        <span class="tag tag-hire">技術</span>
+        <h3>iOS 開發工程師</h3>
+        <p>負責山海狩 iOS 端開發，參與 AR、RealityKit 和遊戲系統設計。</p>
+        <ul>
+          <li>熟悉 Swift / SwiftUI</li>
+          <li>有 ARKit / RealityKit 經驗優先</li>
+          <li>熟悉 Firebase 生態系統</li>
+          <li>對遊戲開發有熱情</li>
+        </ul>
+        <a class="btn-mail" href="mailto:aichinglife2@gmail.com?subject=應聘 iOS 開發工程師 — 山海狩">投遞簡歷 →</a>
+      </div>
+
+      <div class="card">
+        <div class="icon">🎨</div>
+        <span class="tag tag-hire">設計</span>
+        <h3>3D 美術設計師</h3>
+        <p>負責靈獸 3D 模型、動畫和遊戲內視覺設計。</p>
+        <ul>
+          <li>擅長角色建模與動畫</li>
+          <li>熟悉 Blender / Maya / ZBrush</li>
+          <li>能製作 USDZ 格式模型</li>
+          <li>對東方神話美學有獨到理解</li>
+        </ul>
+        <a class="btn-mail" href="mailto:aichinglife2@gmail.com?subject=應聘 3D 美術設計師 — 山海狩">投遞簡歷 →</a>
+      </div>
+
+      <div class="card">
+        <div class="icon">📣</div>
+        <span class="tag tag-hire">營運</span>
+        <h3>社群營運經理</h3>
+        <p>負責山海狩社群媒體運營、玩家社區管理和活動策劃。</p>
+        <ul>
+          <li>熟悉 IG / Facebook / 小紅書營運</li>
+          <li>有遊戲社群管理經驗優先</li>
+          <li>優秀的文案能力</li>
+          <li>熱愛手遊和東方文化</li>
+        </ul>
+        <a class="btn-mail" href="mailto:aichinglife2@gmail.com?subject=應聘社群營運經理 — 山海狩">投遞簡歷 →</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<div class="cta-box">
+  <h2>期待與你合作</h2>
+  <p>無論是商務合作還是加入我們的團隊，歡迎隨時聯繫</p>
+  <a class="email" href="mailto:aichinglife2@gmail.com">aichinglife2@gmail.com</a>
+</div>
+
+<footer>© 2026 山海狩 Mythic Hunt. All Rights Reserved.</footer>
+</body>
+</html>
