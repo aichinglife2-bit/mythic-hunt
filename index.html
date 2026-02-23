@@ -151,8 +151,9 @@ header .inner {
     font-family: "Noto Serif TC", serif;
     font-size: clamp(32px, 6vw, 56px); font-weight: 900;
     line-height: 1.3; letter-spacing: 5px; margin-bottom: 20px;
-    color: var(--text-1);
-    text-shadow: 0 4px 30px rgba(201,168,76,0.12);
+    background: linear-gradient(135deg, var(--gold-l), var(--gold));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    text-shadow: none;
   }
   .hero-sub {
     font-family: "Inter", sans-serif;
