@@ -18,6 +18,9 @@
 <meta name="twitter:description" content="神話不再只是傳說。全港首個以《山海經》為藍本的 AR 實境手遊，現已登陸 App Store。">
 <meta name="twitter:image" content="https://www.mythic-hunt.com/og-image.png">
 <link rel="icon" href="favicon.png" type="image/png">
+<link rel="preload" href="ss-ar.webp" as="image">
+<link rel="preload" href="app-icon-sm.png" as="image">
+<link rel="preload" href="poster-video.webp" as="image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
@@ -57,14 +60,15 @@ img { display: block; max-width: 100%; }
 /* ═══ NAV ═══ */
 header {
   position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-  background: rgba(9,9,11,0.8);
-  backdrop-filter: blur(20px) saturate(1.3);
+  background: rgba(9,9,11,0.92);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--border);
-  transition: all 0.35s;
+  transition: background 0.35s;
+  will-change: background;
 }
 header.scrolled {
-  background: rgba(9,9,11,0.95);
-  backdrop-filter: blur(24px) saturate(1.4);
+  background: rgba(9,9,11,0.97);
 }
 header .inner {
   max-width: 100%; margin: 0;
@@ -381,6 +385,12 @@ footer {
   font-size: 12px; color: var(--text-3);
 }
 
+/* ═══ LAZY RENDER (below-fold sections skip layout until near viewport) ═══ */
+#news, #features, #gallery, #about, #download, footer {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 600px;
+}
+
 /* ═══ MOBILE ═══ */
 @media (max-width: 768px) {
   .hero .container { flex-direction: column; text-align: center; }
@@ -397,6 +407,8 @@ footer {
   .nav-links { display: none; }
   .hamburger { display: block; }
   .news-grid { grid-template-columns: 1fr; }
+  header { -webkit-backdrop-filter: none; backdrop-filter: none; background: rgba(9,9,11,0.96); }
+  header.scrolled { background: rgba(9,9,11,0.98); }
 }
 </style>
 </head>
@@ -457,7 +469,7 @@ footer {
     <div class="hero-visual">
       <div class="phone-frame">
         <div class="phone-screen">
-          <img src="ss-ar.webp" alt="山海狩 AR 實景">
+          <img src="ss-ar.webp" alt="山海狩 AR 實景" fetchpriority="high" decoding="async">
         </div>
       </div>
     </div>
@@ -572,11 +584,11 @@ footer {
   </div>
   <div class="gallery-scroll">
     <div style="width:24px;flex-shrink:0;"></div>
-    <div class="gallery-item"><img src="ss-keyart.webp" alt="山海狩主視覺" loading="lazy"></div>
-    <div class="gallery-item"><img src="ss-ar.webp" alt="AR 夥伴實景" loading="lazy"></div>
-    <div class="gallery-item"><img src="ss-creature.webp" alt="靈獸戰鬥" loading="lazy"></div>
-    <div class="gallery-item"><img src="ss-battle.webp" alt="培養與戰鬥系統" loading="lazy"></div>
-    <div class="gallery-item"><img src="ss-map.webp" alt="地圖探索" loading="lazy"></div>
+    <div class="gallery-item"><img src="ss-keyart.webp" alt="山海狩主視覺" loading="lazy" decoding="async"></div>
+    <div class="gallery-item"><img src="ss-ar.webp" alt="AR 夥伴實景" loading="lazy" decoding="async"></div>
+    <div class="gallery-item"><img src="ss-creature.webp" alt="靈獸戰鬥" loading="lazy" decoding="async"></div>
+    <div class="gallery-item"><img src="ss-battle.webp" alt="培養與戰鬥系統" loading="lazy" decoding="async"></div>
+    <div class="gallery-item"><img src="ss-map.webp" alt="地圖探索" loading="lazy" decoding="async"></div>
     <div style="width:24px;flex-shrink:0;"></div>
   </div>
 </section>
@@ -715,21 +727,30 @@ function observeAll(){
 }
 observeAll();
 
-/* Lazy-load & auto-play video on scroll */
+/* Lazy-load & auto-play video on scroll (buffered) */
 (function(){
   const video = document.getElementById('promoVideo');
   if(!video) return;
   let loaded = false;
+  let readyToPlay = false;
+
+  video.addEventListener('canplaythrough', ()=>{ readyToPlay = true; }, {once:true});
+
   const vObs = new IntersectionObserver((entries)=>{
     entries.forEach(e=>{
       if(e.isIntersecting){
-        if(!loaded){ video.preload='metadata'; video.load(); loaded=true; }
-        video.play().catch(()=>{});
+        if(!loaded){
+          video.preload='auto';
+          video.load();
+          loaded=true;
+        }
+        if(readyToPlay) video.play().catch(()=>{});
+        else video.addEventListener('canplaythrough', ()=>{ video.play().catch(()=>{}); }, {once:true});
       } else {
         video.pause();
       }
     });
-  },{threshold:0.2, rootMargin:'200px'});
+  },{threshold:0.15, rootMargin:'400px'});
   vObs.observe(video);
 })();
 </script>
