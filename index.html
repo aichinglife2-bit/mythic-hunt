@@ -102,6 +102,28 @@ header .inner {
   transition: transform 0.2s;
 }
 .nav-links a:hover::after { transform: scaleX(1); }
+.header-actions { display: flex; align-items: center; gap: 10px; }
+.lang-switch {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: rgba(255,255,255,0.04);
+  padding: 0 8px;
+  height: 34px;
+}
+.lang-switch select {
+  background: transparent;
+  color: var(--text);
+  border: none;
+  outline: none;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+}
+.lang-switch select option {
+  color: #111;
+}
 .btn-cta {
   display: inline-flex; align-items: center; gap: 6px;
   background: var(--gold); color: #000;
@@ -439,13 +461,22 @@ footer {
       <li><a href="#about">關於</a></li>
       <li><a href="partners.html">合作招聘</a></li>
     </ul>
-    <a class="btn-cta" href="https://apps.apple.com/hk/app/%E5%B1%B1%E6%B5%B7%E7%8B%A9/id6759091771" target="_blank">
+    <div class="header-actions">
+      <label class="lang-switch" aria-label="Language">
+        <select id="langSelect">
+          <option value="zh">繁中</option>
+          <option value="en">EN</option>
+          <option value="ja">日本語</option>
+        </select>
+      </label>
+      <a class="btn-cta" href="https://apps.apple.com/hk/app/%E5%B1%B1%E6%B5%B7%E7%8B%A9/id6759091771" target="_blank">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
-      免費下載
+      <span id="ctaDownloadText">免費下載</span>
     </a>
     <button class="hamburger" onclick="document.querySelector('.nav-links').style.display=this.dataset.open?'none':'flex';this.dataset.open=this.dataset.open?'':'1';" aria-label="Menu">
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
     </button>
+    </div>
   </div>
 </header>
 
@@ -455,21 +486,21 @@ footer {
   <div class="hero-grid"></div>
   <div class="container">
     <div class="hero-content">
-      <h1><span class="gold">全港首個</span><br><span style="white-space:nowrap;">AR 山海經手遊</span></h1>
-      <h2 class="hero-slogan"><span class="gold">神話走入現實</span><br>山海由你而狩</h2>
+      <h1 id="heroTitle"><span class="gold">全港首個</span><br><span style="white-space:nowrap;">AR 山海經手遊</span></h1>
+      <h2 class="hero-slogan" id="heroSlogan"><span class="gold">神話走入現實</span><br>山海由你而狩</h2>
       <p class="hero-sub">M Y T H I C &ensp; H U N T</p>
-      <div class="hero-tag"><span class="dot"></span>現已登陸 App Store — 免費下載</div>
-      <p class="hero-p">
+      <div class="hero-tag"><span class="dot"></span><span id="heroTagText">現已登陸 App Store — 免費下載</span></div>
+      <p class="hero-p" id="heroDesc">
         以中國古典神話《山海經》為藍本，結合 AR 增強現實與 GPS 定位技術。走進真實街頭，喚醒沉睡千年的上古神獸——九尾狐、麒麟、燭龍、鳳凰⋯⋯就在你身邊。
       </p>
       <div class="hero-actions">
         <a class="btn-store" href="https://apps.apple.com/hk/app/%E5%B1%B1%E6%B5%B7%E7%8B%A9/id6759091771" target="_blank">
           <svg viewBox="0 0 24 24" fill="black"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
-          App Store 下載
+          <span id="heroStoreText">App Store 下載</span>
         </a>
         <a class="btn-secondary" href="#gallery">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-          瀏覽遊戲畫面
+          <span id="heroGalleryText">瀏覽遊戲畫面</span>
         </a>
       </div>
     </div>
@@ -489,19 +520,19 @@ footer {
     <div class="stats-grid">
       <div class="stat-item fade-in">
         <div class="num">100+</div>
-        <div class="label">上古靈獸</div>
+        <div class="label" id="statLabel1">上古靈獸</div>
       </div>
       <div class="stat-item fade-in">
         <div class="num">3</div>
-        <div class="label">進化階段</div>
+        <div class="label" id="statLabel2">進化階段</div>
       </div>
       <div class="stat-item fade-in">
         <div class="num">AR</div>
-        <div class="label">增強現實技術</div>
+        <div class="label" id="statLabel3">增強現實技術</div>
       </div>
       <div class="stat-item fade-in">
         <div class="num">GPS</div>
-        <div class="label">實景定位探索</div>
+        <div class="label" id="statLabel4">實景定位探索</div>
       </div>
     </div>
   </div>
@@ -512,8 +543,8 @@ footer {
   <div class="container">
     <div class="sec-header fade-in">
       <div class="overline">Trailer</div>
-      <h2 class="serif">官方宣傳片</h2>
-      <p class="sub">一分鐘感受山海經的奇幻世界</p>
+      <h2 class="serif" id="videoTitle">官方宣傳片</h2>
+      <p class="sub" id="videoSub">一分鐘感受山海經的奇幻世界</p>
     </div>
     <div class="video-wrapper fade-in" style="max-width:1100px;margin:0 auto;">
       <video id="promoVideo" controls playsinline muted preload="none" poster="poster-video.webp"
@@ -530,8 +561,8 @@ footer {
   <div class="container">
     <div class="sec-header fade-in">
       <div class="overline">News</div>
-      <h2>最新公告</h2>
-      <p class="sub">遊戲最新動態、版本更新與活動資訊</p>
+      <h2 id="newsTitle">最新公告</h2>
+      <p class="sub" id="newsSub">遊戲最新動態、版本更新與活動資訊</p>
     </div>
     <div class="news-grid" id="news-list"></div>
   </div>
@@ -542,39 +573,39 @@ footer {
   <div class="container">
     <div class="sec-header fade-in">
       <div class="overline">Features</div>
-      <h2>遊戲特色</h2>
-      <p class="sub">融合東方神話美學與現代 AR 技術的沉浸式體驗</p>
+      <h2 id="featuresTitle">遊戲特色</h2>
+      <p class="sub" id="featuresSub">融合東方神話美學與現代 AR 技術的沉浸式體驗</p>
     </div>
     <div class="feat-grid">
       <div class="feat-card fade-in">
         <div class="icon">🐉</div>
-        <h3>百種上古靈獸</h3>
-        <p>收錄超過百種源自《山海經》原典的靈獸，從九尾狐到燭龍，逐一收集、養成進化</p>
+        <h3 id="feature1Title">百種上古靈獸</h3>
+        <p id="feature1Desc">收錄超過百種源自《山海經》原典的靈獸，從九尾狐到燭龍，逐一收集、養成進化</p>
       </div>
       <div class="feat-card fade-in">
         <div class="icon">📷</div>
-        <h3>AR 實境捕獲</h3>
-        <p>打開鏡頭即見 3D 神獸現身真實世界，街頭巷尾、公園地標皆是你的狩獵場</p>
+        <h3 id="feature2Title">AR 實境捕獲</h3>
+        <p id="feature2Desc">打開鏡頭即見 3D 神獸現身真實世界，街頭巷尾、公園地標皆是你的狩獵場</p>
       </div>
       <div class="feat-card fade-in">
         <div class="icon">⚔️</div>
-        <h3>即時策略戰鬥</h3>
-        <p>靈獸對戰、煉化捕獲，運用元素相剋與技能搭配，考驗你的狩獵智慧</p>
+        <h3 id="feature3Title">即時策略戰鬥</h3>
+        <p id="feature3Desc">靈獸對戰、煉化捕獲，運用元素相剋與技能搭配，考驗你的狩獵智慧</p>
       </div>
       <div class="feat-card fade-in">
         <div class="icon">🌏</div>
-        <h3>GPS 戶外探索</h3>
-        <p>基於真實地理位置生成靈獸，越走越遠、越多發現，探索你的城市</p>
+        <h3 id="feature4Title">GPS 戶外探索</h3>
+        <p id="feature4Desc">基於真實地理位置生成靈獸，越走越遠、越多發現，探索你的城市</p>
       </div>
       <div class="feat-card fade-in">
         <div class="icon">🎭</div>
-        <h3>三階進化系統</h3>
-        <p>幼體→成長期→兇猛體，透過投餵、互動提升親密度，培育最強靈獸夥伴</p>
+        <h3 id="feature5Title">三階進化系統</h3>
+        <p id="feature5Desc">幼體→成長期→兇猛體，透過投餵、互動提升親密度，培育最強靈獸夥伴</p>
       </div>
       <div class="feat-card fade-in">
         <div class="icon">👥</div>
-        <h3>附近玩家互動</h3>
-        <p>探索時邂逅其他獵人，觀看即時狩獵動態，感受山海世界的熱鬧氛圍</p>
+        <h3 id="feature6Title">附近玩家互動</h3>
+        <p id="feature6Desc">探索時邂逅其他獵人，觀看即時狩獵動態，感受山海世界的熱鬧氛圍</p>
       </div>
     </div>
   </div>
@@ -585,8 +616,8 @@ footer {
   <div class="container">
     <div class="sec-header fade-in">
       <div class="overline">Gallery</div>
-      <h2>遊戲畫面</h2>
-      <p class="sub">沉浸式 AR 體驗，隨時隨地展開你的山海冒險</p>
+      <h2 id="galleryTitle">遊戲畫面</h2>
+      <p class="sub" id="gallerySub">沉浸式 AR 體驗，隨時隨地展開你的山海冒險</p>
     </div>
   </div>
   <div class="gallery-scroll">
@@ -605,16 +636,16 @@ footer {
   <div class="container">
     <div class="sec-header fade-in">
       <div class="overline">About</div>
-      <h2>關於山海狩</h2>
+      <h2 id="aboutTitle">關於山海狩</h2>
     </div>
     <div class="about-grid">
       <div class="about-text fade-in">
-        <p>《山海狩》是全港首個以中國古典神話《山海經》為藍本的 AR 增強現實手遊。我們將千年前的奇幻世界帶到現代城市，讓玩家透過手機鏡頭，在真實的街道、公園、地標中發現隱藏的上古靈獸。</p>
-        <p>遊戲融合了 AR 實景技術、GPS 定位探索、即時戰鬥與養成收集系統，為玩家打造沉浸式的神話狩獵體驗。每一隻靈獸都來自《山海經》原典記載，忠於神話、重現經典。</p>
+        <p id="aboutP1">《山海狩》是全港首個以中國古典神話《山海經》為藍本的 AR 增強現實手遊。我們將千年前的奇幻世界帶到現代城市，讓玩家透過手機鏡頭，在真實的街道、公園、地標中發現隱藏的上古靈獸。</p>
+        <p id="aboutP2">遊戲融合了 AR 實景技術、GPS 定位探索、即時戰鬥與養成收集系統，為玩家打造沉浸式的神話狩獵體驗。每一隻靈獸都來自《山海經》原典記載，忠於神話、重現經典。</p>
       </div>
       <div class="about-quote fade-in">
-        <p>「又東三百里，曰青丘之山。有獸焉，其狀如狐而九尾，其音如嬰兒，能食人。食者不蠱。」</p>
-        <cite>——《山海經・南山經》</cite>
+        <p id="quoteText">「又東三百里，曰青丘之山。有獸焉，其狀如狐而九尾，其音如嬰兒，能食人。食者不蠱。」</p>
+        <cite id="quoteCite">——《山海經・南山經》</cite>
       </div>
     </div>
   </div>
@@ -626,17 +657,17 @@ footer {
     <div class="dl-box fade-in">
       <div class="sec-header">
         <div class="overline">Download</div>
-        <h2>立即開始狩獵</h2>
-        <p class="sub">免費下載，即刻踏入山海世界</p>
+        <h2 id="downloadTitle">立即開始狩獵</h2>
+        <p class="sub" id="downloadSub">免費下載，即刻踏入山海世界</p>
       </div>
       <div class="dl-actions">
         <a class="btn-store" href="https://apps.apple.com/hk/app/%E5%B1%B1%E6%B5%B7%E7%8B%A9/id6759091771" target="_blank">
           <svg viewBox="0 0 24 24" fill="black"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
-          App Store 免費下載
+          <span id="downloadStoreText">App Store 免費下載</span>
         </a>
         <div class="dl-qr">
           <img src="qr-code.webp" alt="QR Code" loading="lazy">
-          <span>掃描 QR CODE</span>
+          <span id="qrText">掃描 QR CODE</span>
         </div>
       </div>
     </div>
@@ -655,51 +686,51 @@ footer {
             <span class="logo-sub">MYTHIC HUNT</span>
           </div>
         </div>
-        <p>全港首個以《山海經》為藍本的 AR 增強現實手遊。神話不再只是傳說。</p>
+        <p id="footerBrandDesc">全港首個以《山海經》為藍本的 AR 增強現實手遊。神話不再只是傳說。</p>
       </div>
       <div class="footer-col">
-        <h4>遊戲</h4>
+        <h4 id="footerGameTitle">遊戲</h4>
         <ul>
-          <li><a href="#features">遊戲特色</a></li>
-          <li><a href="#gallery">遊戲畫面</a></li>
-          <li><a href="#news">最新公告</a></li>
+          <li><a href="#features" id="footerGameFeature">遊戲特色</a></li>
+          <li><a href="#gallery" id="footerGameGallery">遊戲畫面</a></li>
+          <li><a href="#news" id="footerGameNews">最新公告</a></li>
         </ul>
       </div>
       <div class="footer-col">
-        <h4>下載</h4>
+        <h4 id="footerDownloadTitle">下載</h4>
         <ul>
           <li><a href="https://apps.apple.com/hk/app/%E5%B1%B1%E6%B5%B7%E7%8B%A9/id6759091771" target="_blank">App Store</a></li>
         </ul>
       </div>
       <div class="footer-col">
-        <h4>合作</h4>
+        <h4 id="footerPartnerTitle">合作</h4>
         <ul>
-          <li><a href="partners.html">廣告合作</a></li>
-          <li><a href="partners.html">代理合作</a></li>
-          <li><a href="partners.html">KOL 合作</a></li>
-          <li><a href="partners.html">人才招聘</a></li>
+          <li><a href="partners.html" id="footerPartnerAds">廣告合作</a></li>
+          <li><a href="partners.html" id="footerPartnerAgent">代理合作</a></li>
+          <li><a href="partners.html" id="footerPartnerKOL">KOL 合作</a></li>
+          <li><a href="partners.html" id="footerPartnerJobs">人才招聘</a></li>
         </ul>
       </div>
       <div class="footer-col">
-        <h4>法律</h4>
+        <h4 id="footerLegalTitle">法律</h4>
         <ul>
-          <li><a href="terms.html">服務條款</a></li>
-          <li><a href="privacy.html">隱私政策</a></li>
+          <li><a href="terms.html" id="footerTerms">服務條款</a></li>
+          <li><a href="privacy.html" id="footerPrivacy">隱私政策</a></li>
         </ul>
       </div>
       <div class="footer-col">
-        <h4>聯絡</h4>
+        <h4 id="footerContactTitle">聯絡</h4>
         <ul>
-          <li><a href="mailto:aichinglife2@gmail.com">電郵聯繫</a></li>
-          <li><a href="https://www.facebook.com/people/%E6%98%9F%E7%BF%8A%E7%A7%91%E6%8A%80/61588540206562/" target="_blank">Facebook 專頁</a></li>
+          <li><a href="mailto:aichinglife2@gmail.com" id="footerContactEmail">電郵聯繫</a></li>
+          <li><a href="https://www.facebook.com/people/%E6%98%9F%E7%BF%8A%E7%A7%91%E6%8A%80/61588540206562/" target="_blank" id="footerContactFacebook">Facebook 專頁</a></li>
         </ul>
       </div>
     </div>
     <div class="footer-bottom">
-      <span>© 2026 山海狩 Mythic Hunt. All Rights Reserved.</span>
+      <span id="copyrightText">© 2026 山海狩 Mythic Hunt. All Rights Reserved.</span>
       <span style="display:flex;align-items:center;gap:16px;">
-        <a href="terms.html" style="color:var(--text-3);">服務條款</a>
-        <a href="privacy.html" style="color:var(--text-3);">隱私政策</a>
+        <a href="terms.html" style="color:var(--text-3);" id="footerBottomTerms">服務條款</a>
+        <a href="privacy.html" style="color:var(--text-3);" id="footerBottomPrivacy">隱私政策</a>
         <a href="https://www.facebook.com/people/%E6%98%9F%E7%BF%8A%E7%A7%91%E6%8A%80/61588540206562/" target="_blank" style="color:var(--text-3);transition:color 0.2s;" onmouseover="this.style.color='#1877F2'" onmouseout="this.style.color='var(--text-3)'">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
         </a>
@@ -710,59 +741,430 @@ footer {
 </footer>
 
 <script>
-/* Announcements */
-fetch('announcements.json')
-  .then(r=>r.json())
-  .then(data=>{
-    const el=document.getElementById('news-list');
-    if(!data.length){el.innerHTML='<p style="text-align:center;color:var(--text-3)">暫無公告</p>';return;}
-    el.innerHTML=data.sort((a,b)=>b.id-a.id).map(a=>`
+const I18N = {
+  zh: {
+    metaTitle: "山海狩 Mythic Hunt — 全港首個 AR 山海經靈獸手遊",
+    metaDescription: "全港首個以《山海經》為藍本的 AR 實境手遊。走進真實街頭，召喚上古神獸，開啟你的山海狩獵之旅。",
+    nav: ["宣傳片", "最新公告", "遊戲特色", "遊戲畫面", "關於", "合作招聘"],
+    ctaDownloadText: "免費下載",
+    heroTitle: "<span class=\"gold\">全港首個</span><br><span style=\"white-space:nowrap;\">AR 山海經手遊</span>",
+    heroSlogan: "<span class=\"gold\">神話走入現實</span><br>山海由你而狩",
+    heroTagText: "現已登陸 App Store — 免費下載",
+    heroDesc: "以中國古典神話《山海經》為藍本，結合 AR 增強現實與 GPS 定位技術。走進真實街頭，喚醒沉睡千年的上古神獸——九尾狐、麒麟、燭龍、鳳凰⋯⋯就在你身邊。",
+    heroStoreText: "App Store 下載",
+    heroGalleryText: "瀏覽遊戲畫面",
+    statLabel1: "上古靈獸",
+    statLabel2: "進化階段",
+    statLabel3: "增強現實技術",
+    statLabel4: "實景定位探索",
+    videoTitle: "官方宣傳片",
+    videoSub: "一分鐘感受山海經的奇幻世界",
+    newsTitle: "最新公告",
+    newsSub: "遊戲最新動態、版本更新與活動資訊",
+    featuresTitle: "遊戲特色",
+    featuresSub: "融合東方神話美學與現代 AR 技術的沉浸式體驗",
+    feature1Title: "百種上古靈獸",
+    feature1Desc: "收錄超過百種源自《山海經》原典的靈獸，從九尾狐到燭龍，逐一收集、養成進化",
+    feature2Title: "AR 實境捕獲",
+    feature2Desc: "打開鏡頭即見 3D 神獸現身真實世界，街頭巷尾、公園地標皆是你的狩獵場",
+    feature3Title: "即時策略戰鬥",
+    feature3Desc: "靈獸對戰、煉化捕獲，運用元素相剋與技能搭配，考驗你的狩獵智慧",
+    feature4Title: "GPS 戶外探索",
+    feature4Desc: "基於真實地理位置生成靈獸，越走越遠、越多發現，探索你的城市",
+    feature5Title: "三階進化系統",
+    feature5Desc: "幼體→成長期→兇猛體，透過投餵、互動提升親密度，培育最強靈獸夥伴",
+    feature6Title: "附近玩家互動",
+    feature6Desc: "探索時邂逅其他獵人，觀看即時狩獵動態，感受山海世界的熱鬧氛圍",
+    galleryTitle: "遊戲畫面",
+    gallerySub: "沉浸式 AR 體驗，隨時隨地展開你的山海冒險",
+    aboutTitle: "關於山海狩",
+    aboutP1: "《山海狩》是全港首個以中國古典神話《山海經》為藍本的 AR 增強現實手遊。我們將千年前的奇幻世界帶到現代城市，讓玩家透過手機鏡頭，在真實的街道、公園、地標中發現隱藏的上古靈獸。",
+    aboutP2: "遊戲融合了 AR 實景技術、GPS 定位探索、即時戰鬥與養成收集系統，為玩家打造沉浸式的神話狩獵體驗。每一隻靈獸都來自《山海經》原典記載，忠於神話、重現經典。",
+    quoteText: "「又東三百里，曰青丘之山。有獸焉，其狀如狐而九尾，其音如嬰兒，能食人。食者不蠱。」",
+    quoteCite: "——《山海經・南山經》",
+    downloadTitle: "立即開始狩獵",
+    downloadSub: "免費下載，即刻踏入山海世界",
+    downloadStoreText: "App Store 免費下載",
+    qrText: "掃描 QR CODE",
+    footerBrandDesc: "全港首個以《山海經》為藍本的 AR 增強現實手遊。神話不再只是傳說。",
+    footerGameTitle: "遊戲",
+    footerGameFeature: "遊戲特色",
+    footerGameGallery: "遊戲畫面",
+    footerGameNews: "最新公告",
+    footerDownloadTitle: "下載",
+    footerPartnerTitle: "合作",
+    footerPartnerAds: "廣告合作",
+    footerPartnerAgent: "代理合作",
+    footerPartnerKOL: "KOL 合作",
+    footerPartnerJobs: "人才招聘",
+    footerLegalTitle: "法律",
+    footerTerms: "服務條款",
+    footerPrivacy: "隱私政策",
+    footerContactTitle: "聯絡",
+    footerContactEmail: "電郵聯繫",
+    footerContactFacebook: "Facebook 專頁",
+    footerBottomTerms: "服務條款",
+    footerBottomPrivacy: "隱私政策",
+    noNews: "暫無公告"
+  },
+  en: {
+    metaTitle: "Mythic Hunt — Hong Kong's First AR Shan Hai Jing Mobile Game",
+    metaDescription: "Hong Kong's first AR mobile game inspired by Shan Hai Jing. Explore real streets, summon mythic beasts, and start your hunt.",
+    nav: ["Trailer", "News", "Features", "Gallery", "About", "Partners"],
+    ctaDownloadText: "Free Download",
+    heroTitle: "<span class=\"gold\">Hong Kong's First</span><br><span style=\"white-space:nowrap;\">AR Shan Hai Jing Game</span>",
+    heroSlogan: "<span class=\"gold\">Myth Meets Reality</span><br>Hunt the Shan Hai Beasts",
+    heroTagText: "Now on App Store — Free Download",
+    heroDesc: "Inspired by the ancient Chinese classic Shan Hai Jing, Mythic Hunt blends AR and GPS exploration. Walk the real world and awaken legendary beasts around you.",
+    heroStoreText: "Download on App Store",
+    heroGalleryText: "View Gallery",
+    statLabel1: "Mythic Beasts",
+    statLabel2: "Evolution Stages",
+    statLabel3: "AR Technology",
+    statLabel4: "GPS Exploration",
+    videoTitle: "Official Trailer",
+    videoSub: "Step into the fantasy world of Shan Hai Jing in one minute",
+    newsTitle: "Latest News",
+    newsSub: "Game updates, patch notes, and event announcements",
+    featuresTitle: "Game Features",
+    featuresSub: "An immersive experience blending Eastern mythology and modern AR",
+    feature1Title: "100+ Mythic Beasts",
+    feature1Desc: "Collect and evolve over 100 legendary creatures from Shan Hai Jing.",
+    feature2Title: "AR Capture",
+    feature2Desc: "Open your camera and capture 3D mythic beasts in real locations.",
+    feature3Title: "Strategic Battles",
+    feature3Desc: "Battle and capture with element counters and skill combinations.",
+    feature4Title: "GPS Adventure",
+    feature4Desc: "Discover more beasts as you explore farther in your city.",
+    feature5Title: "3-Stage Evolution",
+    feature5Desc: "Raise your companion from baby to growth to fierce form.",
+    feature6Title: "Nearby Player Activity",
+    feature6Desc: "Encounter other hunters and see live activity around you.",
+    galleryTitle: "Game Gallery",
+    gallerySub: "Immersive AR moments anytime, anywhere",
+    aboutTitle: "About Mythic Hunt",
+    aboutP1: "Mythic Hunt is Hong Kong's first AR mobile game inspired by Shan Hai Jing. We bring ancient fantasy into modern cities through your phone camera.",
+    aboutP2: "With AR, GPS exploration, real-time battles, and creature collection, Mythic Hunt creates a deeply immersive mythic adventure.",
+    quoteText: "\"Three hundred li east lies Qingqiu Mountain. There is a beast shaped like a fox with nine tails...\"",
+    quoteCite: "— Shan Hai Jing · Nanshan Canon",
+    downloadTitle: "Start Your Hunt",
+    downloadSub: "Free to download. Enter the world of Shan Hai now.",
+    downloadStoreText: "Free on App Store",
+    qrText: "Scan QR Code",
+    footerBrandDesc: "Hong Kong's first AR mobile game based on Shan Hai Jing.",
+    footerGameTitle: "Game",
+    footerGameFeature: "Features",
+    footerGameGallery: "Gallery",
+    footerGameNews: "News",
+    footerDownloadTitle: "Download",
+    footerPartnerTitle: "Partners",
+    footerPartnerAds: "Advertising",
+    footerPartnerAgent: "Agency",
+    footerPartnerKOL: "KOL Collaboration",
+    footerPartnerJobs: "Careers",
+    footerLegalTitle: "Legal",
+    footerTerms: "Terms",
+    footerPrivacy: "Privacy",
+    footerContactTitle: "Contact",
+    footerContactEmail: "Email",
+    footerContactFacebook: "Facebook",
+    footerBottomTerms: "Terms",
+    footerBottomPrivacy: "Privacy",
+    noNews: "No announcements yet"
+  },
+  ja: {
+    metaTitle: "山海狩 Mythic Hunt — 香港初のAR山海経モバイルゲーム",
+    metaDescription: "山海経を原作とした香港初のARモバイルゲーム。現実の街で神獣を探し、狩猟の冒険を始めよう。",
+    nav: ["予告編", "お知らせ", "特徴", "ギャラリー", "紹介", "提携募集"],
+    ctaDownloadText: "無料ダウンロード",
+    heroTitle: "<span class=\"gold\">香港初</span><br><span style=\"white-space:nowrap;\">AR 山海経ゲーム</span>",
+    heroSlogan: "<span class=\"gold\">神話が現実に</span><br>山海の狩りへ",
+    heroTagText: "App Store配信中 — 無料ダウンロード",
+    heroDesc: "中国古典『山海経』をベースに、ARとGPS探索を融合。現実の街で伝説の神獣を発見しよう。",
+    heroStoreText: "App Storeで入手",
+    heroGalleryText: "ゲーム画面を見る",
+    statLabel1: "神獣数",
+    statLabel2: "進化段階",
+    statLabel3: "AR技術",
+    statLabel4: "GPS探索",
+    videoTitle: "公式トレーラー",
+    videoSub: "1分で体感する山海経ファンタジー",
+    newsTitle: "最新情報",
+    newsSub: "アップデート・イベント・お知らせ",
+    featuresTitle: "ゲームの特徴",
+    featuresSub: "東洋神話美学と現代ARを融合した没入体験",
+    feature1Title: "100種以上の神獣",
+    feature1Desc: "山海経由来の神獣を収集・育成・進化。",
+    feature2Title: "AR捕獲",
+    feature2Desc: "カメラを開くと現実世界に3D神獣が出現。",
+    feature3Title: "戦略バトル",
+    feature3Desc: "属性相性とスキル構成で勝利を目指そう。",
+    feature4Title: "GPS探索",
+    feature4Desc: "歩くほど発見が増える都市探索体験。",
+    feature5Title: "3段階進化",
+    feature5Desc: "幼体→成長→凶猛体へ進化育成。",
+    feature6Title: "近隣プレイヤー連動",
+    feature6Desc: "周辺ハンターの活動を確認できる。",
+    galleryTitle: "ゲームギャラリー",
+    gallerySub: "いつでもどこでも没入AR体験",
+    aboutTitle: "山海狩について",
+    aboutP1: "山海狩は、山海経を題材にした香港初のARモバイルゲームです。古代神話の世界を現代都市へ。",
+    aboutP2: "AR、GPS探索、リアルタイムバトル、収集育成を組み合わせた神話狩猟体験を提供します。",
+    quoteText: "「東へ三百里に青丘の山あり。狐の姿で九つの尾を持つ獣あり…」",
+    quoteCite: "— 山海経・南山経",
+    downloadTitle: "今すぐ狩りを始める",
+    downloadSub: "無料ダウンロードで山海世界へ",
+    downloadStoreText: "App Storeで無料入手",
+    qrText: "QRコードをスキャン",
+    footerBrandDesc: "山海経を原作とした香港初のARモバイルゲーム。",
+    footerGameTitle: "ゲーム",
+    footerGameFeature: "特徴",
+    footerGameGallery: "ギャラリー",
+    footerGameNews: "お知らせ",
+    footerDownloadTitle: "ダウンロード",
+    footerPartnerTitle: "提携",
+    footerPartnerAds: "広告提携",
+    footerPartnerAgent: "代理提携",
+    footerPartnerKOL: "KOL提携",
+    footerPartnerJobs: "採用",
+    footerLegalTitle: "法務",
+    footerTerms: "利用規約",
+    footerPrivacy: "プライバシー",
+    footerContactTitle: "連絡先",
+    footerContactEmail: "メール連絡",
+    footerContactFacebook: "Facebookページ",
+    footerBottomTerms: "利用規約",
+    footerBottomPrivacy: "プライバシー",
+    noNews: "お知らせはまだありません"
+  }
+};
+
+const LANG_STORAGE_KEY = "mythic-hunt-lang";
+let currentLang = "zh";
+let announcementsData = [];
+
+function getById(id) {
+  return document.getElementById(id);
+}
+
+function setText(id, value) {
+  const el = getById(id);
+  if (el && typeof value === "string") el.textContent = value;
+}
+
+function setHTML(id, value) {
+  const el = getById(id);
+  if (el && typeof value === "string") el.innerHTML = value;
+}
+
+function getLocaleTag(lang) {
+  if (lang === "zh") return "zh-Hant";
+  return lang;
+}
+
+function pickLocalized(item, key, lang) {
+  if (lang === "zh") return item[key] || "";
+  const byLang = item[`${key}_${lang}`];
+  return byLang || item[key] || "";
+}
+
+function applyLanguage(lang) {
+  const t = I18N[lang] || I18N.zh;
+  currentLang = lang;
+  localStorage.setItem(LANG_STORAGE_KEY, lang);
+
+  document.documentElement.lang = getLocaleTag(lang);
+  document.title = t.metaTitle;
+
+  const metaDesc = document.querySelector('meta[name="description"]');
+  if (metaDesc) metaDesc.setAttribute("content", t.metaDescription);
+  const ogTitle = document.querySelector('meta[property="og:title"]');
+  if (ogTitle) ogTitle.setAttribute("content", t.metaTitle);
+  const ogDesc = document.querySelector('meta[property="og:description"]');
+  if (ogDesc) ogDesc.setAttribute("content", t.metaDescription);
+  const twTitle = document.querySelector('meta[name="twitter:title"]');
+  if (twTitle) twTitle.setAttribute("content", t.metaTitle);
+  const twDesc = document.querySelector('meta[name="twitter:description"]');
+  if (twDesc) twDesc.setAttribute("content", t.metaDescription);
+
+  const navEls = document.querySelectorAll(".nav-links a");
+  navEls.forEach((el, i) => {
+    if (t.nav[i]) el.textContent = t.nav[i];
+  });
+
+  setText("ctaDownloadText", t.ctaDownloadText);
+  setHTML("heroTitle", t.heroTitle);
+  setHTML("heroSlogan", t.heroSlogan);
+  setText("heroTagText", t.heroTagText);
+  setText("heroDesc", t.heroDesc);
+  setText("heroStoreText", t.heroStoreText);
+  setText("heroGalleryText", t.heroGalleryText);
+  setText("statLabel1", t.statLabel1);
+  setText("statLabel2", t.statLabel2);
+  setText("statLabel3", t.statLabel3);
+  setText("statLabel4", t.statLabel4);
+  setText("videoTitle", t.videoTitle);
+  setText("videoSub", t.videoSub);
+  setText("newsTitle", t.newsTitle);
+  setText("newsSub", t.newsSub);
+  setText("featuresTitle", t.featuresTitle);
+  setText("featuresSub", t.featuresSub);
+  setText("feature1Title", t.feature1Title);
+  setText("feature1Desc", t.feature1Desc);
+  setText("feature2Title", t.feature2Title);
+  setText("feature2Desc", t.feature2Desc);
+  setText("feature3Title", t.feature3Title);
+  setText("feature3Desc", t.feature3Desc);
+  setText("feature4Title", t.feature4Title);
+  setText("feature4Desc", t.feature4Desc);
+  setText("feature5Title", t.feature5Title);
+  setText("feature5Desc", t.feature5Desc);
+  setText("feature6Title", t.feature6Title);
+  setText("feature6Desc", t.feature6Desc);
+  setText("galleryTitle", t.galleryTitle);
+  setText("gallerySub", t.gallerySub);
+  setText("aboutTitle", t.aboutTitle);
+  setText("aboutP1", t.aboutP1);
+  setText("aboutP2", t.aboutP2);
+  setText("quoteText", t.quoteText);
+  setText("quoteCite", t.quoteCite);
+  setText("downloadTitle", t.downloadTitle);
+  setText("downloadSub", t.downloadSub);
+  setText("downloadStoreText", t.downloadStoreText);
+  setText("qrText", t.qrText);
+  setText("footerBrandDesc", t.footerBrandDesc);
+  setText("footerGameTitle", t.footerGameTitle);
+  setText("footerGameFeature", t.footerGameFeature);
+  setText("footerGameGallery", t.footerGameGallery);
+  setText("footerGameNews", t.footerGameNews);
+  setText("footerDownloadTitle", t.footerDownloadTitle);
+  setText("footerPartnerTitle", t.footerPartnerTitle);
+  setText("footerPartnerAds", t.footerPartnerAds);
+  setText("footerPartnerAgent", t.footerPartnerAgent);
+  setText("footerPartnerKOL", t.footerPartnerKOL);
+  setText("footerPartnerJobs", t.footerPartnerJobs);
+  setText("footerLegalTitle", t.footerLegalTitle);
+  setText("footerTerms", t.footerTerms);
+  setText("footerPrivacy", t.footerPrivacy);
+  setText("footerContactTitle", t.footerContactTitle);
+  setText("footerContactEmail", t.footerContactEmail);
+  setText("footerContactFacebook", t.footerContactFacebook);
+  setText("footerBottomTerms", t.footerBottomTerms);
+  setText("footerBottomPrivacy", t.footerBottomPrivacy);
+
+  renderAnnouncements();
+}
+
+function renderAnnouncements() {
+  const el = document.getElementById("news-list");
+  const t = I18N[currentLang] || I18N.zh;
+  if (!el) return;
+  if (!announcementsData.length) {
+    el.innerHTML = `<p style="text-align:center;color:var(--text-3)">${t.noNews}</p>`;
+    return;
+  }
+  el.innerHTML = announcementsData
+    .slice()
+    .sort((a, b) => b.id - a.id)
+    .map((a) => {
+      const tag = pickLocalized(a, "tag", currentLang);
+      const title = pickLocalized(a, "title", currentLang);
+      const content = pickLocalized(a, "content", currentLang);
+      return `
       <div class="news-card fade-in">
         <div class="news-meta">
-          <span class="news-tag" style="background:${a.tagColor}18;color:${a.tagColor}">${a.tag}</span>
+          <span class="news-tag" style="background:${a.tagColor}18;color:${a.tagColor}">${tag}</span>
           <span class="news-date">${a.date}</span>
         </div>
-        ${a.image ? `<img class="news-cover" src="${a.image}" alt="${a.title}" loading="lazy" decoding="async">` : ""}
-        <div class="news-title">${a.title}</div>
-        <div class="news-body">${(a.content || "").replace(/\n/g, "<br>")}</div>
-      </div>`).join('');
-    observeAll();
+        ${a.image ? `<img class="news-cover" src="${a.image}" alt="${title}" loading="lazy" decoding="async">` : ""}
+        <div class="news-title">${title}</div>
+        <div class="news-body">${(content || "").replace(/\n/g, "<br>")}</div>
+      </div>`;
+    })
+    .join("");
+  observeAll();
+}
+
+function detectInitialLang() {
+  const saved = localStorage.getItem(LANG_STORAGE_KEY);
+  if (saved && I18N[saved]) return saved;
+  const nav = (navigator.language || "").toLowerCase();
+  if (nav.startsWith("ja")) return "ja";
+  if (nav.startsWith("en")) return "en";
+  return "zh";
+}
+
+/* Announcements */
+fetch("announcements.json")
+  .then((r) => r.json())
+  .then((data) => {
+    announcementsData = Array.isArray(data) ? data : [];
+    renderAnnouncements();
   })
-  .catch(()=>{document.getElementById('news-list').innerHTML='<p style="text-align:center;color:var(--text-3)">暫無公告</p>';});
+  .catch(() => {
+    announcementsData = [];
+    renderAnnouncements();
+  });
 
 /* Scroll header */
-const hdr=document.getElementById('header');
-window.addEventListener('scroll',()=>{hdr.classList.toggle('scrolled',window.scrollY>40);},{passive:true});
+const hdr = document.getElementById("header");
+window.addEventListener(
+  "scroll",
+  () => {
+    hdr.classList.toggle("scrolled", window.scrollY > 40);
+  },
+  { passive: true }
+);
 
 /* Fade-in observer */
-function observeAll(){
-  const obs=new IntersectionObserver((entries)=>{
-    entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}});
-  },{threshold:0.15});
-  document.querySelectorAll('.fade-in:not(.visible)').forEach(el=>obs.observe(el));
+function observeAll() {
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach((e) => {
+      if (e.isIntersecting) {
+        e.target.classList.add("visible");
+        obs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  document.querySelectorAll(".fade-in:not(.visible)").forEach((node) => obs.observe(node));
 }
 observeAll();
 
 /* Lazy-load & auto-play video on scroll */
-(function(){
-  const video = document.getElementById('promoVideo');
-  if(!video) return;
+(function () {
+  const video = document.getElementById("promoVideo");
+  if (!video) return;
   let loaded = false;
   let ready = false;
-  video.addEventListener('canplaythrough', ()=>{ ready = true; }, {once:true});
-  const vObs = new IntersectionObserver((entries)=>{
-    entries.forEach(e=>{
-      if(e.isIntersecting){
-        if(!loaded){ video.preload='auto'; video.load(); loaded=true; }
-        if(ready) video.play().catch(()=>{});
-        else video.addEventListener('canplaythrough', ()=>{ video.play().catch(()=>{}); }, {once:true});
+  video.addEventListener("canplaythrough", () => { ready = true; }, { once: true });
+  const vObs = new IntersectionObserver((entries) => {
+    entries.forEach((e) => {
+      if (e.isIntersecting) {
+        if (!loaded) {
+          video.preload = "auto";
+          video.load();
+          loaded = true;
+        }
+        if (ready) video.play().catch(() => {});
+        else video.addEventListener("canplaythrough", () => { video.play().catch(() => {}); }, { once: true });
       } else {
         video.pause();
       }
     });
-  },{threshold:0.15, rootMargin:'400px'});
+  }, { threshold: 0.15, rootMargin: "400px" });
   vObs.observe(video);
 })();
+
+/* Language selector */
+const langSelect = document.getElementById("langSelect");
+if (langSelect) {
+  const initialLang = detectInitialLang();
+  langSelect.value = initialLang;
+  applyLanguage(initialLang);
+  langSelect.addEventListener("change", (e) => {
+    applyLanguage(e.target.value);
+  });
+}
 </script>
 </body>
 </html>
