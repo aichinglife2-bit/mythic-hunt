@@ -465,6 +465,7 @@ footer {
       <label class="lang-switch" aria-label="Language">
         <select id="langSelect">
           <option value="zh">繁中</option>
+          <option value="zh-cn">简中</option>
           <option value="en">EN</option>
           <option value="ja">日本語</option>
         </select>
@@ -807,6 +808,71 @@ const I18N = {
     footerBottomPrivacy: "隱私政策",
     noNews: "暫無公告"
   },
+  "zh-cn": {
+    metaTitle: "山海狩 Mythic Hunt — 全港首个 AR 山海经灵兽手游",
+    metaDescription: "全港首个以《山海经》为蓝本的 AR 实景手游。走进真实街头，召唤上古神兽，开启你的山海狩猎之旅。",
+    nav: ["宣传片", "最新公告", "游戏特色", "游戏画面", "关于", "合作招聘"],
+    ctaDownloadText: "免费下载",
+    heroTitle: "<span class=\"gold\">全港首个</span><br><span style=\"white-space:nowrap;\">AR 山海经手游</span>",
+    heroSlogan: "<span class=\"gold\">神话走入现实</span><br>山海由你而狩",
+    heroTagText: "现已登陆 App Store — 免费下载",
+    heroDesc: "以中国古典神话《山海经》为蓝本，结合 AR 增强现实与 GPS 定位技术。走进真实街头，唤醒沉睡千年的上古神兽——九尾狐、麒麟、烛龙、凤凰⋯⋯就在你身边。",
+    heroStoreText: "App Store 下载",
+    heroGalleryText: "浏览游戏画面",
+    statLabel1: "上古灵兽",
+    statLabel2: "进化阶段",
+    statLabel3: "增强现实技术",
+    statLabel4: "实景定位探索",
+    videoTitle: "官方宣传片",
+    videoSub: "一分钟感受山海经的奇幻世界",
+    newsTitle: "最新公告",
+    newsSub: "游戏最新动态、版本更新与活动资讯",
+    featuresTitle: "游戏特色",
+    featuresSub: "融合东方神话美学与现代 AR 技术的沉浸式体验",
+    feature1Title: "百种上古灵兽",
+    feature1Desc: "收录超过百种源自《山海经》原典的灵兽，从九尾狐到烛龙，逐一收集、养成进化",
+    feature2Title: "AR 实境捕获",
+    feature2Desc: "打开镜头即见 3D 神兽现身真实世界，街头巷尾、公园地标皆是你的狩猎场",
+    feature3Title: "即时策略战斗",
+    feature3Desc: "灵兽对战、炼化捕获，运用元素相克与技能搭配，考验你的狩猎智慧",
+    feature4Title: "GPS 户外探索",
+    feature4Desc: "基于真实地理位置生成灵兽，越走越远、越多发现，探索你的城市",
+    feature5Title: "三阶进化系统",
+    feature5Desc: "幼体→成长期→凶猛体，通过投喂、互动提升亲密度，培育最强灵兽伙伴",
+    feature6Title: "附近玩家互动",
+    feature6Desc: "探索时邂逅其他猎人，观看即时狩猎动态，感受山海世界的热闹氛围",
+    galleryTitle: "游戏画面",
+    gallerySub: "沉浸式 AR 体验，随时随地展开你的山海冒险",
+    aboutTitle: "关于山海狩",
+    aboutP1: "《山海狩》是全港首个以中国古典神话《山海经》为蓝本的 AR 增强现实手游。我们将千年前的奇幻世界带到现代城市，让玩家通过手机镜头，在真实的街道、公园、地标中发现隐藏的上古灵兽。",
+    aboutP2: "游戏融合了 AR 实景技术、GPS 定位探索、即时战斗与养成收集系统，为玩家打造沉浸式的神话狩猎体验。每一只灵兽都来自《山海经》原典记载，忠于神话、重现经典。",
+    quoteText: "「又东三百里，曰青丘之山。有兽焉，其状如狐而九尾，其音如婴儿，能食人。食者不蛊。」",
+    quoteCite: "——《山海经・南山经》",
+    downloadTitle: "立即开始狩猎",
+    downloadSub: "免费下载，即刻踏入山海世界",
+    downloadStoreText: "App Store 免费下载",
+    qrText: "扫描 QR CODE",
+    footerBrandDesc: "全港首个以《山海经》为蓝本的 AR 增强现实手游。神话不再只是传说。",
+    footerGameTitle: "游戏",
+    footerGameFeature: "游戏特色",
+    footerGameGallery: "游戏画面",
+    footerGameNews: "最新公告",
+    footerDownloadTitle: "下载",
+    footerPartnerTitle: "合作",
+    footerPartnerAds: "广告合作",
+    footerPartnerAgent: "代理合作",
+    footerPartnerKOL: "KOL 合作",
+    footerPartnerJobs: "人才招聘",
+    footerLegalTitle: "法律",
+    footerTerms: "服务条款",
+    footerPrivacy: "隐私政策",
+    footerContactTitle: "联络",
+    footerContactEmail: "电邮联系",
+    footerContactFacebook: "Facebook 专页",
+    footerBottomTerms: "服务条款",
+    footerBottomPrivacy: "隐私政策",
+    noNews: "暂无公告"
+  },
   en: {
     metaTitle: "Mythic Hunt — Hong Kong's First AR Shan Hai Jing Mobile Game",
     metaDescription: "Hong Kong's first AR mobile game inspired by Shan Hai Jing. Explore real streets, summon mythic beasts, and start your hunt.",
@@ -959,12 +1025,14 @@ function setHTML(id, value) {
 
 function getLocaleTag(lang) {
   if (lang === "zh") return "zh-Hant";
+  if (lang === "zh-cn") return "zh-CN";
   return lang;
 }
 
 function pickLocalized(item, key, lang) {
   if (lang === "zh") return item[key] || "";
-  const byLang = item[`${key}_${lang}`];
+  const langKey = lang.replace("-", "");
+  const byLang = item[`${key}_${langKey}`] || item[`${key}_${lang}`];
   return byLang || item[key] || "";
 }
 
@@ -1089,6 +1157,7 @@ function detectInitialLang() {
   const saved = localStorage.getItem(LANG_STORAGE_KEY);
   if (saved && I18N[saved]) return saved;
   const nav = (navigator.language || "").toLowerCase();
+  if (nav.startsWith("zh-cn") || nav.startsWith("zh-hans")) return "zh-cn";
   if (nav.startsWith("ja")) return "ja";
   if (nav.startsWith("en")) return "en";
   return "zh";
