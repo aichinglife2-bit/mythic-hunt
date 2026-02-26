@@ -1,5 +1,22 @@
 [
   {
+    "id": 5,
+    "date": "2026-02-27",
+    "tag": "更新",
+    "tag_zhcn": "更新",
+    "tag_en": "Update",
+    "tag_ja": "アップデート",
+    "tagColor": "#ff6b6b",
+    "title": "新功能上線：積分兌換 + 每日登入獎勵",
+    "title_zhcn": "新功能上线：积分兑换 + 每日登录奖励",
+    "title_en": "New Feature Live: Points Redemption + Daily Login Reward",
+    "title_ja": "新機能公開：ポイント交換 + デイリーログイン報酬",
+    "content": "《山海狩》現已推出「積分兌換」功能！\n\n1) 消費回饋：每消費 HK$100 = 1 積分\n2) 每日登入獎勵：+1 積分（註冊玩家與訪客皆可領取）\n3) 兌換分類：美妝護膚、名錶精品、母嬰育兒、時尚穿搭、世界娛樂\n\n實際可兌換品項與所需積分，請以 App 內「積分兌換」頁面為準。",
+    "content_zhcn": "《山海狩》现已推出「积分兑换」功能！\n\n1) 消费回馈：每消费 HK$100 = 1 积分\n2) 每日登录奖励：+1 积分（注册玩家与访客皆可领取）\n3) 兑换分类：美妆护肤、名表精品、母婴育儿、时尚穿搭、世界娱乐\n\n实际可兑换品项与所需积分，请以 App 内「积分兑换」页面为准。",
+    "content_en": "Mythic Hunt now supports Points Redemption.\n\n1) Spending reward: every HK$100 spent = 1 point\n2) Daily login reward: +1 point (for both registered users and guests)\n3) Redemption categories: Beauty, Watches, Mother & Baby, Fashion, and World Entertainment\n\nPlease refer to the in-app Points Redemption page for the latest redeemable items and required points.",
+    "content_ja": "『山海狩』に「ポイント交換」機能が登場しました。\n\n1) 消費還元：HK$100ごとに1ポイント\n2) デイリーログイン報酬：+1ポイント（登録ユーザー・ゲスト共通）\n3) 交換カテゴリ：美容、腕時計、ベビー＆キッズ、ファッション、ワールドエンタメ\n\n交換可能なアイテムと必要ポイントは、アプリ内「ポイント交換」ページをご確認ください。"
+  },
+  {
     "id": 4,
     "date": "2026-02-24",
     "tag": "活動",
