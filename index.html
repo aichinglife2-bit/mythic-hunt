@@ -90,7 +90,7 @@ header .inner {
   font-size: 9px; font-weight: 600; letter-spacing: 3.5px;
   color: rgba(201,168,76,0.6); margin-top: 2px;
 }
-.nav-links { display: flex; align-items: center; gap: 32px; list-style: none; }
+.nav-links { display: flex; align-items: center; gap: 22px; list-style: none; }
 .nav-links a {
   font-size: 13px; font-weight: 500; color: var(--gold);
   letter-spacing: 0.5px; transition: color 0.2s; position: relative;
@@ -359,6 +359,113 @@ section { padding: 100px 0; }
 }
 .about-quote cite { font-size: 12px; color: var(--gold-d); font-style: normal; }
 
+/* ═══ SHOP ═══ */
+#shop {
+  border-top: 1px solid var(--border);
+  background:
+    radial-gradient(circle at top right, rgba(201,168,76,0.10), transparent 38%),
+    linear-gradient(180deg, rgba(201,168,76,0.04), rgba(255,255,255,0) 28%);
+}
+.shop-showcase {
+  display: grid;
+  grid-template-columns: minmax(300px, 420px) 1fr;
+  gap: 36px;
+  align-items: center;
+}
+.shop-product-card {
+  background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
+  border: 1px solid rgba(201,168,76,0.18);
+  border-radius: 28px;
+  padding: 22px;
+  box-shadow: 0 24px 60px rgba(0,0,0,0.38);
+}
+.shop-product-card img {
+  width: 100%;
+  border-radius: 22px;
+  background: linear-gradient(180deg, #f8f1e8, #eee3d4);
+}
+.shop-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 14px;
+  border-radius: 999px;
+  margin-bottom: 18px;
+  border: 1px solid rgba(201,168,76,0.24);
+  background: rgba(201,168,76,0.08);
+  color: var(--gold-l);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+.shop-product-info h2 {
+  font-family: "Noto Serif TC", serif;
+  font-size: clamp(30px, 5vw, 46px);
+  font-weight: 900;
+  letter-spacing: 2px;
+  margin-bottom: 12px;
+}
+.shop-product-info p {
+  font-size: 15px;
+  color: var(--text-2);
+  line-height: 1.9;
+}
+.shop-price-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 26px 0 18px;
+}
+.price-chip {
+  padding: 12px 16px;
+  border-radius: 14px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--border);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text);
+}
+.price-chip strong {
+  color: var(--gold-l);
+  font-size: 20px;
+  margin-left: 8px;
+}
+.shop-donation {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 16px;
+  border-radius: 14px;
+  background: rgba(201,168,76,0.10);
+  border: 1px solid rgba(201,168,76,0.22);
+  color: var(--gold-l);
+  font-size: 14px;
+  font-weight: 700;
+}
+.shop-points {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  margin: 24px 0 30px;
+}
+.shop-point {
+  padding: 16px 18px;
+  border-radius: 16px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+}
+.shop-point strong {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 14px;
+  color: var(--text);
+}
+.shop-point span {
+  font-size: 13px;
+  color: var(--text-2);
+  line-height: 1.7;
+}
+
 /* ═══ DOWNLOAD CTA ═══ */
 #download {
   border-top: 1px solid var(--border);
@@ -415,7 +522,7 @@ footer {
 }
 
 /* ═══ LAZY RENDER (below-fold sections skip layout until near viewport) ═══ */
-#news, #features, #gallery, #about, #download, footer {
+#news, #features, #gallery, #about, #shop, #download, footer {
   content-visibility: auto;
   contain-intrinsic-size: auto 600px;
 }
@@ -431,6 +538,8 @@ footer {
   .stats-grid { grid-template-columns: repeat(2, 1fr); }
   .feat-grid { grid-template-columns: 1fr; }
   .about-grid { grid-template-columns: 1fr; }
+  .shop-showcase { grid-template-columns: 1fr; }
+  .shop-points { grid-template-columns: 1fr; }
   .footer-grid { grid-template-columns: 1fr 1fr; }
   .footer-bottom { flex-direction: column; gap: 8px; text-align: center; }
   .nav-links { display: none; }
@@ -455,7 +564,8 @@ footer {
     </a>
     <ul class="nav-links">
       <li><a href="#video">宣傳片</a></li>
-      <li><a href="#news">最新公告</a></li>
+      <li><a href="#shop">FuFu 團子</a></li>
+      <li><a href="charity.html">公益</a></li>
       <li><a href="#features">遊戲特色</a></li>
       <li><a href="#gallery">遊戲畫面</a></li>
       <li><a href="#about">關於</a></li>
@@ -538,6 +648,56 @@ footer {
     </div>
   </div>
 </div>
+
+<!-- SHOP -->
+<section id="shop">
+  <div class="container">
+    <div class="shop-showcase">
+      <div class="shop-product-card fade-in">
+        <img src="fufu-dango.png" alt="FuFu 團子 Mythic Hunt IP 公仔" loading="lazy" decoding="async">
+      </div>
+      <div class="shop-product-info fade-in">
+        <div class="shop-kicker">MYTHIC HUNT IP FIGURE</div>
+        <h2>FuFu 團子</h2>
+        <p>
+          山海狩 Mythic Hunt 官方 IP 公仔正式登場。FuFu 團子以溫柔治癒的造型，結合神話世界觀與收藏感，
+          適合送禮、展示與粉絲珍藏。
+        </p>
+        <div class="shop-price-row">
+          <div class="price-chip">售價 / Price<strong>358 HKD</strong></div>
+          <div class="price-chip">中國內地 / Mainland<strong>310 RMB</strong></div>
+        </div>
+        <div class="shop-donation">每賣出一隻，Mythic 都會捐出 10% 做慈善。</div>
+        <div class="shop-points">
+          <div class="shop-point">
+            <strong>官方收藏公仔 / Official Collectible</strong>
+            <span>山海狩 IP 角色周邊，適合 Mythic Hunt 玩家與收藏者。</span>
+          </div>
+          <div class="shop-point">
+            <strong>公益聯乘 / Charity With Every Sale</strong>
+            <span>每一筆購買都會同步支持慈善用途，讓收藏更有意義。</span>
+          </div>
+          <div class="shop-point">
+            <strong>品牌展示 / Brand-ready Layout</strong>
+            <span>首頁已可直接展示售價、主視覺、購買入口與公益資訊。</span>
+          </div>
+          <div class="shop-point">
+            <strong>預訂入口 / Pre-order Entry</strong>
+            <span>目前以預訂方式收單，之後可再接購物車或付款系統。</span>
+          </div>
+        </div>
+        <div class="hero-actions">
+          <a class="btn-store" href="mailto:aichinglife2@gmail.com?subject=FuFu%20%E5%9C%98%E5%AD%90%20%E9%A0%90%E8%A8%82%20%2F%20FuFu%20Pre-order&body=%E6%88%91%E6%83%B3%E9%A0%90%E8%A8%82%20FuFu%20%E5%9C%98%E5%AD%90%E3%80%82%0A%0AI%20want%20to%20pre-order%20FuFu%20Dango.">
+            <span>立即預訂 / Pre-order</span>
+          </a>
+          <a class="btn-secondary" href="charity.html">
+            <span>了解公益 / Charity</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
 <!-- VIDEO -->
 <section id="video" style="padding:80px 0;">
@@ -702,6 +862,8 @@ footer {
         <h4 id="footerDownloadTitle">下載</h4>
         <ul>
           <li><a href="https://apps.apple.com/hk/app/%E5%B1%B1%E6%B5%B7%E7%8B%A9/id6759091771" target="_blank">App Store</a></li>
+          <li><a href="#shop">FuFu 團子 / Collectible</a></li>
+          <li><a href="charity.html">公益 / Charity</a></li>
         </ul>
       </div>
       <div class="footer-col">
@@ -747,7 +909,7 @@ const I18N = {
   zh: {
     metaTitle: "山海狩 Mythic Hunt — 全港首個 AR 山海經靈獸手遊",
     metaDescription: "全港首個以《山海經》為藍本的 AR 實境手遊。走進真實街頭，召喚上古神獸，開啟你的山海狩獵之旅。",
-    nav: ["宣傳片", "最新公告", "遊戲特色", "遊戲畫面", "關於", "合作招聘"],
+    nav: ["宣傳片", "FuFu 團子", "公益", "遊戲特色", "遊戲畫面", "關於", "合作招聘"],
     ctaDownloadText: "免費下載",
     heroTitle: "<span class=\"gold\">全港首個</span><br><span style=\"white-space:nowrap;\">AR 山海經手遊</span>",
     heroSlogan: "<span class=\"gold\">神話走入現實</span><br>山海由你而狩",
@@ -812,7 +974,7 @@ const I18N = {
   "zh-cn": {
     metaTitle: "山海狩 Mythic Hunt — 全港首个 AR 山海经灵兽手游",
     metaDescription: "全港首个以《山海经》为蓝本的 AR 实景手游。走进真实街头，召唤上古神兽，开启你的山海狩猎之旅。",
-    nav: ["宣传片", "最新公告", "游戏特色", "游戏画面", "关于", "合作招聘"],
+    nav: ["宣传片", "FuFu 团子", "公益", "游戏特色", "游戏画面", "关于", "合作招聘"],
     ctaDownloadText: "免费下载",
     heroTitle: "<span class=\"gold\">全港首个</span><br><span style=\"white-space:nowrap;\">AR 山海经手游</span>",
     heroSlogan: "<span class=\"gold\">神话走入现实</span><br>山海由你而狩",
@@ -877,7 +1039,7 @@ const I18N = {
   en: {
     metaTitle: "Mythic Hunt — Hong Kong's First AR Shan Hai Jing Mobile Game",
     metaDescription: "Hong Kong's first AR mobile game inspired by Shan Hai Jing. Explore real streets, summon mythic beasts, and start your hunt.",
-    nav: ["Trailer", "News", "Features", "Gallery", "About", "Partners"],
+    nav: ["Trailer", "FuFu Dango", "Charity", "Features", "Gallery", "About", "Partners"],
     ctaDownloadText: "Free Download",
     heroTitle: "<span class=\"gold\">Hong Kong's First</span><br><span style=\"white-space:nowrap;\">AR Shan Hai Jing Game</span>",
     heroSlogan: "<span class=\"gold\">Myth Meets Reality</span><br>Hunt the Shan Hai Beasts",
@@ -942,7 +1104,7 @@ const I18N = {
   ja: {
     metaTitle: "山海狩 Mythic Hunt — 香港初のAR山海経モバイルゲーム",
     metaDescription: "山海経を原作とした香港初のARモバイルゲーム。現実の街で神獣を探し、狩猟の冒険を始めよう。",
-    nav: ["予告編", "お知らせ", "特徴", "ギャラリー", "紹介", "提携募集"],
+    nav: ["予告編", "FuFu 団子", "チャリティー", "特徴", "ギャラリー", "紹介", "提携募集"],
     ctaDownloadText: "無料ダウンロード",
     heroTitle: "<span class=\"gold\">香港初</span><br><span style=\"white-space:nowrap;\">AR 山海経ゲーム</span>",
     heroSlogan: "<span class=\"gold\">神話が現実に</span><br>山海の狩りへ",
