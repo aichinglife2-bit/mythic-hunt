@@ -373,16 +373,37 @@ section { padding: 100px 0; }
   align-items: center;
 }
 .shop-product-card {
+  position: relative;
   background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
   border: 1px solid rgba(201,168,76,0.18);
   border-radius: 28px;
   padding: 22px;
+  overflow: hidden;
   box-shadow: 0 24px 60px rgba(0,0,0,0.38);
 }
 .shop-product-card img {
   width: 100%;
   border-radius: 22px;
   background: linear-gradient(180deg, #f8f1e8, #eee3d4);
+}
+.shop-ribbon {
+  position: absolute;
+  top: 18px;
+  right: -44px;
+  width: 190px;
+  padding: 10px 0;
+  text-align: center;
+  background: linear-gradient(135deg, #8f0d15, #cf232f 45%, #f3c45b);
+  color: #fff8dd;
+  font-size: 13px;
+  font-weight: 900;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  transform: rotate(35deg);
+  box-shadow: 0 10px 26px rgba(0,0,0,0.34);
+  border-top: 1px solid rgba(255,255,255,0.22);
+  border-bottom: 1px solid rgba(255,255,255,0.22);
+  z-index: 2;
 }
 .shop-kicker {
   display: inline-flex;
@@ -676,6 +697,7 @@ footer {
   <div class="container">
     <div class="shop-showcase">
       <div class="shop-product-card fade-in">
+        <div class="shop-ribbon">GLOBAL LIMITED 500</div>
         <img src="fufu-dango.png" alt="FuFu 團子 Mythic Hunt IP 公仔" loading="lazy" decoding="async">
       </div>
       <div class="shop-product-info fade-in">
